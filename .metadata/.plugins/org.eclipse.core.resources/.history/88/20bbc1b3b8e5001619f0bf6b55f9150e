@@ -1,0 +1,10 @@
+package no.nokorot.pointsystem.Element;
+
+public class ElementFileFormat {
+
+	private void syso() {
+		// TODO Auto-generated method stub
+
+	}
+	
+}

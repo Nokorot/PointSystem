@@ -1,0 +1,15 @@
+package no.nokorot.pointsystem.Element;
+
+public class ElementFile {
+
+	public ElementFile() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public static void main(String[] args) {
+		
+		
+		
+	}
+	
+}

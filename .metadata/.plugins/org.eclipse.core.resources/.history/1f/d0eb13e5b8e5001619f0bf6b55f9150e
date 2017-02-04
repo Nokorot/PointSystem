@@ -1,0 +1,19 @@
+package no.nokorot.pointsystem.Element;
+
+import java.awt.image.BufferedImage;
+
+public class ElementFile {
+
+	String path;
+	BufferedImage image;
+	
+	public ElementFile() {
+	}
+	
+	public static void main(String[] args) {
+		
+		
+		
+	}
+	
+}

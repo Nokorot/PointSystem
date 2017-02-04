@@ -1,0 +1,36 @@
+#version 130
+
+in vec2 position;
+in vec2 textureCoords;
+
+out vec2 pass_textureCoords;
+out vec2 pass_pos;
+
+uniform vec2 translation;
+uniform float aspr;
+
+void main(void){
+
+	/*vec2 off = translation;
+	off += 1;
+	off.y *= -1;*/
+
+	vec2 pos = position + vec2(1, -1);
+	
+	pass_pos = pos;
+	
+	if (aspr > 1)
+		pos /= vec2(aspr, 1);
+	else
+		pos *= vec2(1, aspr);
+	
+	pos -= vec2(1, -1);
+		
+	pos += (translation + 1) * vec2(1, -1);
+
+	gl_Position = vec4(pos, 0.0, 1.0);
+	
+	
+	pass_textureCoords = textureCoords;
+
+}

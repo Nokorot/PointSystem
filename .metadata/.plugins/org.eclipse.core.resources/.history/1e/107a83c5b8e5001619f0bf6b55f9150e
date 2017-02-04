@@ -1,0 +1,17 @@
+package no.nokorot.pointsystem.Element;
+
+public class ElementFile {
+
+	String path;
+	
+	
+	public ElementFile() {
+	}
+	
+	public static void main(String[] args) {
+		
+		
+		
+	}
+	
+}

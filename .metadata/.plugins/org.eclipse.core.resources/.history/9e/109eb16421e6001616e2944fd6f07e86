@@ -1,0 +1,17 @@
+package engineTest;
+
+import util.Window;
+
+public class FontManager extends Window {
+	
+	private static FontManager inctance;
+	
+	private FontManager(){
+		super("Font Manager", 500, 500);
+	}
+	
+	
+	
+	
+
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="DemoHello.java" kind="src" path="src"/>
+	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="src" path="liveEngine0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/noko/workspace/Java/Test/Test/LWJGL3"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-assimp-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-assimp.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-bgfx-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-bgfx.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-egl-sources.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-egl.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-glfw-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-glfw.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-jawt-javadoc.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-jawt.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-jemalloc-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-jemalloc.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-lmdb-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-lmdb.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-nanovg-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-nanovg.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-nfd-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-nfd.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-nuklear-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-nuklear.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-openal-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-openal.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-opencl.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-opengl-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-opengl.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-opengles-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-opengles.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-par-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-par.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-sse-javadoc.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-sse-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-sse.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-stb-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-stb.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-tinyfd-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-tinyfd.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-vulkan-sources.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-vulkan.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-xxhash-natives-linux.jar"/>
+	<classpathentry kind="lib" path="LWJGL3/lwjgl-xxhash.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/NokoBox"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

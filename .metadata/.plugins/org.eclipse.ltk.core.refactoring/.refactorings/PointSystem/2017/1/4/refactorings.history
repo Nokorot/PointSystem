@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 5 elements from project &apos;PointSystem&apos;&#x0A;- Original project: &apos;PointSystem&apos;&#x0A;- Original elements:&#x0A;     hs_err_pid18264.log&#x0A;     hs_err_pid18840.log&#x0A;     hs_err_pid20029.log&#x0A;     hs_err_pid20116.log&#x0A;     hs_err_pid3618.log" description="Delete elements" element1="hs_err_pid18840.log" element2="hs_err_pid18264.log" element3="hs_err_pid20116.log" element4="hs_err_pid3618.log" element5="hs_err_pid20029.log" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="5" stamp="1485646788295" subPackages="false" version="1.0"/>
+</session>

@@ -1,0 +1,17 @@
+package engineTest;
+
+import java.awt.HeadlessException;
+import java.awt.Window;
+
+public class FontManager extends Window {
+
+	public FontManager() throws HeadlessException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	
+
+}

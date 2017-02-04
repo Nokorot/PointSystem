@@ -1,0 +1,8 @@
+Font: candara
+Color: 1, 1, 1, 1
+Width: 0.6
+DecayRate: 10
+BorderColor: 0, 0, 0, 1
+BorderWidth: 0.1
+BorderOffset: 0, 0
+BorderDecayRate: 5

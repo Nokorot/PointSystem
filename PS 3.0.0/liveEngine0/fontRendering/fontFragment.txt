@@ -1,0 +1,53 @@
+#version 130
+
+in vec2 pass_textureCoords;
+in vec2 pass_pos;
+
+out vec4 out_color;
+
+uniform vec4 color = vec4(1, 0, 1, 1);
+uniform vec4 borderColor = vec4(0, 0, 0, 1);
+
+uniform sampler2D fontAtlas;
+
+uniform float width;
+uniform float borderWidth;
+uniform vec2 offset = vec2(0);
+
+uniform float dpow = 5;
+uniform float bdpow = 5;
+
+void main(void){
+
+	float distance = 1.0 - texture(fontAtlas, pass_textureCoords).a;
+	
+	float distance2 = 1.0 - texture(fontAtlas, pass_textureCoords - offset).a;
+	
+	float dpow = 2;
+
+	float d0 = distance / width;
+	
+	d0 = 1 - pow(d0, dpow);
+	d0 = clamp(d0, 0, 1);
+	d0 = pow(d0, 1.0/dpow);
+	
+	float d1 = distance2 - width - borderWidth / 2;
+	
+	d1 = d1 / borderWidth;
+	d1 = clamp(d1, 0, 1);
+	d1 = 1 - pow(d1, bdpow);
+	d1 = pow(d1, 1.0 / bdpow);
+	
+	d0 *= color.a;
+	d1 *= borderColor.a;
+	
+	float alpha = d0 + (1.0 - d0) * d1;
+	vec3 totalColor = mix(borderColor.rgb, color.rgb, d0 / alpha);
+	
+	
+	out_color = vec4(totalColor, alpha);
+	
+	return;
+	
+	
+}

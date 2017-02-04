@@ -1,0 +1,19 @@
+#version 130
+
+in vec2 textureCoords;
+
+out vec4 out_Color;
+
+uniform sampler2D guiTexture;
+
+void main(void){
+	
+	out_Color = vec4(0); //vec4(1, 0, 1, 1);
+	
+	vec2 v = textureCoords;
+	if (v.x > 1 || v.x < 0 || v.y > 1 || v.y < 0)
+		return;
+		
+	out_Color = texture(guiTexture,textureCoords);
+
+}

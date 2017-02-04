@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.awt.Font"/>
+<fullyQualifiedTypeName name="fontRendering.FontRenderer"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.lang.Float"/>
+<fullyQualifiedTypeName name="java.lang.IndexOutOfBoundsException"/>
+<fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
+<fullyQualifiedTypeName name="fontRendering.FontMaterial"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="LiveImage.ScaleType"/>
+<fullyQualifiedTypeName name="shaders.ShaderProgram"/>
+<fullyQualifiedTypeName name="guis.GuiRenderer"/>
+<fullyQualifiedTypeName name="guis.GuiShader"/>
+<fullyQualifiedTypeName name="java.awt.Image"/>
+<fullyQualifiedTypeName name="fontRendering.TextMaster"/>
+<fullyQualifiedTypeName name="utils.Matrix4f"/>
+<fullyQualifiedTypeName name="guis.GuiTexture"/>
+<fullyQualifiedTypeName name="engine.Display.Operation"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="engineTest.LiveContent"/>
+<fullyQualifiedTypeName name="util.swing.gride.YStrip"/>
+<fullyQualifiedTypeName name="util.swing.gride.BoxObject"/>
+<fullyQualifiedTypeName name="java.awt.Rectangle"/>
+<fullyQualifiedTypeName name="fontMeshCreator.GUIText"/>
+<fullyQualifiedTypeName name="engine.Display"/>
+<fullyQualifiedTypeName name="utils.Vector2f"/>
+<fullyQualifiedTypeName name="util.swing.gride.XStrip"/>
+<fullyQualifiedTypeName name="engineTest.PSTeam"/>
+<fullyQualifiedTypeName name="engineTest.LiveWindow"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
+<fullyQualifiedTypeName name="engineTest.LiveImage"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="textures.Texture"/>
+<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
+<fullyQualifiedTypeName name="util.jly.contField"/>
+<fullyQualifiedTypeName name="utils.Vector4f"/>
+</qualifiedTypeNameHistroy>

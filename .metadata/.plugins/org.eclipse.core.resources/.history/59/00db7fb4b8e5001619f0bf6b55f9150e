@@ -1,0 +1,9 @@
+package no.nokorot.pointsystem.Element;
+
+public class ElementFileFormat {
+
+	public static void main(String[] args) {
+		
+	}
+	
+}
