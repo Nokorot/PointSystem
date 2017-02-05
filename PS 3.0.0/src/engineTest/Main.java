@@ -73,7 +73,14 @@ public class Main extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		liveWindow = new LiveWindow();
+		
+		liveWindow = new LiveWindow(){
+			protected void init() {
+				super.init();
+				this.seane = PSSeane.inctance;
+				this.seane.setDisplay(this);
+			}
+		};
 		liveWindow.open();
 		
 		Main mainWindow = new Main();
@@ -97,25 +104,23 @@ public class Main extends JFrame {
 			}
 		});
 		
-		int y = 9;
-		
-		y = get("", y);
-		System.out.println(y);
-		
 		new Platform();
 		FontManager.Open(true);
-	}
-	
-	static int get(String key, int targer) {
-		return 1;
-	}
-	
-	static float get(String key, float targer) {
-		return 1;
-	}
-	
-	static boolean get(String key, boolean target){
-		return true;
+
+		new Thread(() -> {
+		while(true){
+			if (PSTeam.fontMaterial == null){
+				try {
+					Thread.sleep(2);
+				} catch (InterruptedException e1) {
+				}
+				continue;
+			}
+			System.out.println("Heyyy");
+			FontManager.setFontMaterial(PSTeam.fontMaterial);
+			break;
+		}}).start();
+			
 	}
 
 

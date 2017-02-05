@@ -1,0 +1,8 @@
+package engineTest;
+
+public class PSSeane {
+
+
+	private PSTeam[] teams = new PSTeam[9];
+	
+}

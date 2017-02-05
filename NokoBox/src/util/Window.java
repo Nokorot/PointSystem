@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 
 import util.adds.UpdateAdd;
 import util.swing.Button;
@@ -317,7 +318,9 @@ public class Window extends JFrame {
 	public void TextFieldAction(TextField field) {}
 	public void PopDownTextFieldAction(PopDownTextField source) {}
 	public void TextListAction(TextList source) {}
+	public void SliderChange(JSlider slider) { }
 
+	
 	public void MouseExited() {}
 	public void MouseEntered() {}
 

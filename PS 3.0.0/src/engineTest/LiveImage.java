@@ -16,14 +16,10 @@ public class LiveImage extends GuiTexture {
 
 	public LiveImage(String path) {
 		super(load(path));
-		
-		LiveWindow.guis.add(this);
 	}
 
 	public LiveImage(BufferedImage image) {
 		super(load(image));
-		
-		LiveWindow.guis.add(this);
 	}
 	
 	private static Texture load(String path){

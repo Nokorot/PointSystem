@@ -79,6 +79,7 @@ public abstract class Display {
 	public Display(int width, int height) {
 		this.width = width;
 		this.height = height;
+		aspect = (float) width / height;
 	}
 
 	public void open() {

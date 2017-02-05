@@ -70,8 +70,12 @@ public class GUIText {
 	public GUIText(Display display){
 		this.display = display;
 	}
+	
+	public GUIText(){
+	}
 
 	private void updateMesh() {
+		if (this.display == null) return;
 		this.display.addOperation(this, "MeshUpdate", () -> {
 			TextMesh data = fontMaterial.font.createTextMesh(this);
 

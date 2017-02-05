@@ -21,7 +21,7 @@ public class PSTeam extends LiveContent implements BoxObject {
 	private final static float nameOf = -.3f;
 	private final static float pointsOf = .1f;
 	
-	private static FontMaterial fontMaterial;
+	public static FontMaterial fontMaterial;
 	
 	private Vector2f pos;
 	
@@ -32,18 +32,19 @@ public class PSTeam extends LiveContent implements BoxObject {
 	private String name;
 	private int points;
 	
-	public PSTeam(Display display) {
-		super(display);
+	public PSTeam() {
 		if (fontMaterial == null)
 			createFont();
 		
-		text = new GUIText(display);
+		System.out.println("hey");
+		
+		text = new GUIText();
 		text.setText("Name");
 		text.setFontSize(5);
 		text.setFontMaterial(fontMaterial);
 		text.setCenterText(true);
 		
-		pointsG = new GUIText(display);
+		pointsG = new GUIText();
 		pointsG.setText("00");
 		pointsG.setFontSize(8);
 		pointsG.setFontMaterial(fontMaterial);
@@ -55,9 +56,14 @@ public class PSTeam extends LiveContent implements BoxObject {
 	}
 	
 	public PSTeam(Display display, Vector2f pos, Vector2f size) {
-		this(display);
 		setPosition(pos);
 		setSize(size);
+	}
+	
+	public void setDisplay(Display display) {
+		super.setDisplay(display);
+		text.setDisplay(display);
+		pointsG.setDisplay(display);
 	}
 	
 	public void setName(String name) {
@@ -153,7 +159,7 @@ public class PSTeam extends LiveContent implements BoxObject {
 			nField.setBounds(5, 5, 290, 50);
 			nField.addActionListener((ActionEvent e) -> {
 				int amount = Integer.parseInt(nField.getText());
-				((LiveWindow) this.display).orgenizeTeams(amount);
+				PSSeane.orgenizeTeams(amount);
 			});
 			frame.add(nField);
 			

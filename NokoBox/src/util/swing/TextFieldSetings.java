@@ -18,11 +18,11 @@ public class TextFieldSetings {
 	public static Border s_border = new JButton().getBorder();
 	public static int s_horizontal = TextField.CENTER;
 
-	protected Color bColor = s_bColor;
-	protected Color tColor = s_tColor;
-	protected Icon icon = s_icon;
-	protected Font font = s_font;
-	protected Border border = s_border;
+	public Color bColor = s_bColor;
+	public Color tColor = s_tColor;
+	public Icon icon = s_icon;
+	public Font font = s_font;
+	public Border border = s_border;
 	public int horizontal = s_horizontal;
 
 	public TextFieldSetings(final Window window) {

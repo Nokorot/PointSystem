@@ -10,4 +10,11 @@ public class LiveContent {
 		this.display = display;
 	}
 	
+	public LiveContent(){
+	}
+
+	public void setDisplay(Display display) {
+		this.display = display;
+	}
+	
 }
