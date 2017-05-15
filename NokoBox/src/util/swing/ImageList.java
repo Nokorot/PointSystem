@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
@@ -63,13 +64,25 @@ public class ImageList extends JList<ImageIcon> implements BoxObject {
 	public void removeImage(int index){
 		listModel.removeElementAt(index);
 	}
+	
+	public void updateImage(int index, BufferedImage image, boolean scale) {
+		try {
+			if(image == null)
+				return;
+			if(scale)
+				image = ImageHandeler.getScaledImage(image, imageSize.width, imageSize.height);
+			listModel.getElementAt(index).setImage(image);
+			this.repaint();
+		} catch (IOException e) {
+		}
+	}
 
 	public void addImage(BufferedImage image, boolean scale) {
 		try {
-			if(scale)
-				image = ImageHandeler.getScaledImage(image, imageSize.width, imageSize.height);
 			if(image == null)
 				return;
+			if(scale)
+				image = ImageHandeler.getScaledImage(image, imageSize.width, imageSize.height);
 			listModel.addElement(new ImageIcon(image));
 			images.add(image);
 		} catch (IOException e) {
@@ -121,5 +134,10 @@ public class ImageList extends JList<ImageIcon> implements BoxObject {
 		sp.setBounds(r);
 //		super.setBounds(r);
 	}
-	
+
+	@Override
+	public void setPane(JPanel pane) {
+		pane.add(this);
+	}
+
 }

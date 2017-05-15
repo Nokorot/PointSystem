@@ -1,5 +1,7 @@
 package util.swing.gride;
 
+import javax.swing.JPanel;
+
 public class XStrip extends Strip {
 
 	public XStrip() {

@@ -9,19 +9,19 @@ import java.util.List;
 
 import util.Window;
 import util.handelers.ImageHandeler.ScaleType;
+import util.math.Maths;
 
-public class SwitchButton extends Button {
+public class SwitchButton extends NBButton {
 	private static final long serialVersionUID = 1L;
 
 	public static final int NON = 0;
 	public static final int STRING = 1;
 	public static final int COLOR = 2;
-	public static final int IMAGE = 3;
+	public static final int IMAGE = 4;
 
-	public static String SString0 = "Off";
-	public static String SString1 = "On";
-	public static Color SColor0 = Color.GRAY;
-	public static Color SColor1 = Color.CYAN;
+	private static String[] defaultStrings = {"Off", "On"};
+	private static Color[] defaultColors = {Color.LIGHT_GRAY, Color.CYAN};
+//	private static BufferedImage defaultIcons;
 	
 	private int switchType = STRING;
 	private List<String> strings = new ArrayList<String>();
@@ -35,26 +35,30 @@ public class SwitchButton extends Button {
 	public SwitchButton(Window window, int type, Object... objects) {
 		super(window);
 		this.switchType = type;
-		
-		addObjects(objects);
+
+		if (objects.length < 1)
+			addDefaultObjects();
+		else
+			addObjects(objects);
 		
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setActive(active + 1);
+				setActiveIndex(active + 1);
+				System.out.println(active);
 			}
 		});
 		
-		setActive(0);
+		setActiveIndex(0);
 	}
 	
-	public static SwitchButton DefaultDoubleString(Window window){
-//		return new SwitchButton(window, STRING, window.defaultSwitch.doubleString);
-		return new SwitchButton(window, STRING, SString0, SString1);
-	}
-	
-	public static SwitchButton DefaultDoubleColor(Window window){
-//		return new SwitchButton(window, STRING, window.defaultSwitch.doubleColor);
-		return new SwitchButton(window, COLOR, SColor0, SColor1);
+	private void addDefaultObjects() {
+		if ((this.switchType & STRING) > 0)
+			for (String s : defaultStrings)
+				strings.add(s);
+		if ((this.switchType & COLOR) > 0)
+			for (Color c : defaultColors)
+				colors.add(c);
+		updateSize();
 	}
 	
 	@Override
@@ -64,13 +68,13 @@ public class SwitchButton extends Button {
 	}
 	
 	public void setSwitchType(int switchType) {
-		if(switchType > 3 || switchType < 0 || this.switchType == switchType)
+		if(switchType < 0 || this.switchType == switchType)
 			return;
 		clearButton();
 		this.switchType = switchType;
 		
 		updateSize();
-		setActive(0);
+		setActiveIndex(0);
 	}
 
 	public void setImageScaleing(ScaleType scaleType) {
@@ -78,7 +82,7 @@ public class SwitchButton extends Button {
 		update();
 	}
 
-	public void setActive(int active){
+	public void setActiveIndex(int active){
 		if(size == 0)
 			return;
 		this.active = active % size;
@@ -107,20 +111,7 @@ public class SwitchButton extends Button {
 	}
 	
 	private void updateSize() {
-		switch (switchType) {
-		case STRING:
-			size = strings.size();
-			break;
-		case COLOR:
-			size = colors.size();
-			break;
-		case IMAGE:
-			size = images.size();
-			break;
-		default:
-			size = 0;
-			break;
-		}
+		size = Maths.LCM(strings.size(), colors.size(), images.size());
 	}
 	
 	private void clearButton(){
@@ -130,19 +121,11 @@ public class SwitchButton extends Button {
 	}
 	
 	private void update(){
-		switch (switchType) {
-		case STRING:
-			setText(strings.get(active));
-			break;
-		case COLOR:
-			setBackground(colors.get(active));
-			break;
-		case IMAGE:
-			setIcon(images.get(active), scaleType);
-			break;
-		default:
-			size = 0;
-			break;
-		}
+		if ((switchType & STRING) > 0)
+			setText(strings.get(active % strings.size()));
+		if ((switchType & COLOR) > 0)
+			setBackground(colors.get(active % colors.size()));
+		if ((switchType & IMAGE) > 0)
+			setIcon(images.get(active % images.size()), scaleType);
 	}
 }

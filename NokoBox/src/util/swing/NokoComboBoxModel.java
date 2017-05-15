@@ -7,7 +7,9 @@ import javax.swing.AbstractListModel;
 import javax.swing.MutableComboBoxModel;
 
 public class NokoComboBoxModel<E> extends AbstractListModel<E> implements MutableComboBoxModel<E>, Serializable {
-    Vector<E> objects;
+	private static final long serialVersionUID = 1L;
+	
+	Vector<E> objects;
     Object selectedObject;
 
     public NokoComboBoxModel() {

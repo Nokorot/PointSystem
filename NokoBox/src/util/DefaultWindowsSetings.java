@@ -10,7 +10,7 @@ public class DefaultWindowsSetings {
 	
 	public static int defaultCloseOperation = 3;
 	public static Image icon;
-	private static Insets gridInset = new Insets(5, 5, 5, 5);
+	public static Insets gridInset = new Insets(5, 5, 5, 5);
 	
 	public static LayoutManager panelLayout = null;
 	

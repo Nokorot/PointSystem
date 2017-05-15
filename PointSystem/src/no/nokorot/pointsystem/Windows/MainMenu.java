@@ -1,7 +1,6 @@
 package no.nokorot.pointsystem.Windows;
 
 import static no.nokorot.pointsystem.Element.Team.MAX_TEAMS;
-import static no.nokorot.pointsystem.Element.Team.TEAMS;
 import static no.nokorot.pointsystem.PSData.backgroundImage;
 import static no.nokorot.pointsystem.PSData.backgroundScaleType;
 import static no.nokorot.pointsystem.PSData.logo;
@@ -19,38 +18,43 @@ import com.thecherno.raincloud.serialization.RCString;
 import no.nokorot.pointsystem.PointSystem;
 import no.nokorot.pointsystem.Element.NamedTeamMenu;
 import util.Window;
-import util.handelers.ImageHandeler;
 import util.handelers.ImageHandeler.ScaleType;
 import util.math.Maths;
-import util.swing.Button;
 import util.swing.Docker;
 import util.swing.Label;
+import util.swing.NBButton;
 import util.swing.TextField;
 import util.swing.gride.Box;
 import util.swing.gride.BoxObject;
-import util.swing.gride.Strip;
 import util.swing.gride.XStrip;
 import util.swing.gride.YStrip;
 
 public class MainMenu {
 
-	private static int Width = 600, Height = 200, AdvanceHeight = 150;
-	private static int HeightFix;
+	public final static int Width = 600, Height = 200;
+	public final static int HeightFix = 0;
 
-	public static MySwitch font, backgornd, size;
-	// private static Button Hide, Logo, Black, Clear;
-	// private static Button ResetPoints, ResetNames;
-
+	public static MySwitch font, backgornd, size; // ,nullNBButton;
+//	private static NBButton Hide, Logo, Black, Clear;
+//	private static NBButton ResetPoints, ResetNames;
+	
+	private static String defaultName = "Team %i";
+	
 	public static TextField GivenPoints;
 
 	public static Window window;
 	public static Docker docker;
-
-	private static Box TeamBox;
-
+	
+	public static NamedTeamMenu[] Teams = new NamedTeamMenu[MAX_TEAMS];
+	
+	public static Box TeamToolBox = new Box();
+	public static Box TeamBox = new Box();
+	private static LocalTeamPanel localTeamPanel;
+	private static OnlineTeamPanel onlineTeamPanel;
+	
 	private static boolean viwe = false;
-
-	private static BufferedImage[] icons = ImageHandeler.loadSheet("/icons.png", 1, 1);
+	
+	public static BufferedImage[] icons = PointSystem.icons;
 
 	private MainMenu() {
 	}
@@ -58,20 +62,23 @@ public class MainMenu {
 	public static void create() {
 		load();
 		window = localWindow();
-
+		
 		// window.gridInsets.set(10, 10, 10, 10);
 		LiveWindow.create(window, PointSystem.Logo);
-		SetUp(2);
+		localTeamPanel = new LocalTeamPanel(window, Teams);
+		onlineTeamPanel = new OnlineTeamPanel(window, Teams);
+		currentAmountOfTeams = 2;
+		setOnline(false);
 
 		LiveWindow.setLogo(PointSystem.Logo, ScaleType.TILLPASS);
-
+		
 		docker = new Docker();
 		docker.registerDock(window);
 		docker.setLayout(Docker.STICKY_LAYOUT);
-		// docker.setComponentMovedReactTime(50);
+//		docker.setComponentMovedReactTime(50);
 	}
 
-	private static void close() {
+	private static void close() {	
 		save();
 		window.setVisible(false);
 		LiveWindow.setVisible(false);
@@ -83,7 +90,7 @@ public class MainMenu {
 			create();
 
 		window.setVisible(true);
-
+		
 		if (backgroundImage != null)
 			LiveWindow.setBackground(backgroundImage, backgroundScaleType);
 		if (logo != null)
@@ -104,80 +111,53 @@ public class MainMenu {
 	}
 
 	// *********** Set Up **************
-	private static NamedTeamMenu[] Teams = new NamedTeamMenu[MAX_TEAMS];
 
-	private static void SetUp(int teams) {
-		LiveWindow.SetUp(teams);
-
-		YStrip root = new YStrip();
-
-		int A = teams, i = 0;
-
-		while (A - i > 4)
-			i = add(root, i, 3);
-		if (A - i > 3)
-			i = add(root, i, 2);
-		if (A - i > 2)
-			i = add(root, i, 3);
-		if (A - i > 1)
-			i = add(root, i, 2);
-		if (A - i > 0)
-			add(root, i, 1);
-
-		for (int k = A; k < Teams.length; k++)
-			if (Teams[k] != null)
-				Teams[k].setVisible(false);
-
-		int height = root.size();
-
-		TeamBox.setBoxObject(root);
-
-		window.setHeight(Height + height * AdvanceHeight + HeightFix);
-		// window.setLocationRelativeTo(null);
-		window.repaint();
-	}
-
-	private static int add(Strip root, int i, int l) {
-		XStrip x = new XStrip();
-
-		for (int k = 0; k < l; k++) {
-			x.append((BoxObject) null, 1);
-			if (Teams[i + k] == null)
-				Teams[i + k] = new NamedTeamMenu(window, TEAMS[i + k]);
-			Teams[i + k].setVisible(true);
-			Teams[i + k].setName(DefaultName.getName(i + k));
-			x.append(Teams[i + k], l * l * 2);
+	private static boolean Online = false;
+	public static void setOnline(boolean online){
+		Online = online;
+		if (Online){
+			localTeamPanel.toolBox.setVisible(false);
+			onlineTeamPanel.setOnline();
+			onlineTeamPanel.toolBox.setVisible(true);
+		}else{
+			onlineTeamPanel.toolBox.setVisible(false);
+			localTeamPanel.setLocal();
+			localTeamPanel.toolBox.setVisible(true);
 		}
-		x.append((BoxObject) null, 1);
-		root.append(x);
-
-		return i + l;
+		setTeams(currentAmountOfTeams);
 	}
-
-	static class MySwitch extends Button implements ActionListener {
+	
+	public static int currentAmountOfTeams;
+	public static void setTeams(int teams){
+		currentAmountOfTeams = teams;
+		if (Online) 
+			onlineTeamPanel.SetUp(teams);
+		else
+			localTeamPanel.SetUp(teams);
+	}
+	
+	static class MySwitch extends NBButton implements ActionListener {
 		private static final long serialVersionUID = 1L;
 
 		public boolean Active = false;
-
+		
 		public Color activeColor = Color.CYAN;
 		public Color deactiveColor = Color.LIGHT_GRAY;
-
+		
 		public MySwitch(Window window, String text, String code) {
 			super(window, text, code);
 			this.addActionListener(this);
-
+			
 		}
 
 		public void actionPerformed(ActionEvent e) {
 			Active = !Active;
-			if (Active)
-				this.setBackground(activeColor);
-			else
-				this.setBackground(deactiveColor);
+			if (Active) this.setBackground(activeColor);
+			else this.setBackground(deactiveColor);
 		}
-
+		
 	}
-
+	
 	private static Window localWindow() {
 		return new Window("PointSystem", Width, Height) {
 			private static final long serialVersionUID = 1L;
@@ -188,16 +168,16 @@ public class MainMenu {
 
 				textfeldSets.setFont(new Font("Arial", Font.BOLD, 32));
 				labelSets.setFontSize(14);
-
+				
 				YStrip root = new YStrip();
 				XStrip x;
-
+				
 				x = new XStrip();
 				x.append(size = new MySwitch(this, "Size", "size"));
 				x.append(backgornd = new MySwitch(this, "Background", "bg"));
 				x.append(font = new MySwitch(this, "Font", "font"));
 				root.append(x, 1, 0);
-
+				
 				x = new XStrip();
 				MySwitch hide = new MySwitch(this, "Hide", "hide");
 				hide.actionPerformed(null);
@@ -206,102 +186,73 @@ public class MainMenu {
 				x.append(new MySwitch(this, "Black", "black"));
 				x.append(new MySwitch(this, "Clear", "clear"));
 				root.append(x, 1, 0);
-
+				
 				Label l = new Label(this);
 				l.setOpaque(true);
 				l.setBackground(Color.GRAY);
 				root.append(l, 0.2, 0);
-
-				YStrip y;
-				x = new XStrip();
-				Button setD = new Button(this, "", "setD");
-				// setD.setOpaque(false);
-				setD.setIcon(icons[0], ScaleType.TILLPASS);
-				x.append(setD, .5);
-
-				y = new YStrip();
-				y.append(new Label(this, "Reset"));
-				y.append(new Button(this, "Points", "resp"), 1.8);
-				x.append(y);
-				y = new YStrip();
-				y.append(new Label(this, "Reset"));
-				y.append(new Button(this, "Names", "resn"), 1.8);
-				x.append(y);
-				y = new YStrip();
-				y.append(new Label(this, "Given Points"));
-				y.append(GivenPoints = new TextField(this, "1", "points"), 1.8);
-				x.append(y);
-				y = new YStrip();
-				y.append(new Label(this, "Team Amount"));
-				y.append(new TextField(this, "2", "teams"), 1.8);
-				x.append(y);
-				root.append(x, 1.2, 0).setInsets(3, 5, 3, 5);
-
+				
+				root.append(TeamToolBox, 1.2, 0);
+				TeamToolBox.setInsets(3, 5, 3, 5);
+				
 				TeamBox = new Box();
 				root.append(TeamBox, 0, 1);
-
+				
 				setVisible(true);
 				this.getFrameBox().setBoxObject(root);
-
+				
 				panel.setBackground(Color.DARK_GRAY);
 			}
-
-			public void ButtonAction(Button b) {
+			
+			public void ButtonAction(NBButton b) {
 				if (b == null)
 					return;
 
-				if (b.code == null)
-					return;
-
-				if (b instanceof MySwitch) {
+				if ( b instanceof MySwitch){
 					MySwitch swich = (MySwitch) b;
-					switch (b.code) {
+					switch (b.code) { 
 					case "size":
-						EditSize.Open(swich.Active);
-						break;
+						EditSize.Open(swich.Active); break;
 					case "bg":
-						BackgroundEditor.Open(swich.Active);
-						break;
+						BackgroundEditor.Open(swich.Active); break;
 					case "font":
-						FontEditor2.Open(swich.Active);
-						break;
-
+						FontEditor2.Open(swich.Active); break;
+						
 					case "hide":
 						LiveWindow.setVisible(!swich.Active);
-						window.toFront();
-						break;
-
+						window.toFront(); break;
+						
 					case "logo":
-						LiveWindow.setMode(LiveWindow.LogoMode);
-						break;
-
+						LiveWindow.setMode(LiveWindow.LogoMode); break;
+						
 					case "black":
-						LiveWindow.setMode(LiveWindow.BlackMode);
-						break;
-
+						LiveWindow.setMode(LiveWindow.BlackMode); break;
+						
 					case "clear":
-						LiveWindow.setCleared(swich.Active);
-						break;
+						LiveWindow.setCleared(swich.Active); break;
 					}
-				} else {
+				}
+				else if (b.code != null){
 					switch (b.code) {
-					case "setD":
-						DefaultName.Open();
+					case "setD": SetDefaultName.Open();
 					case "resp":
-						for (NamedTeamMenu team : Teams)
-							if (team != null)
+						for (NamedTeamMenu team : Teams) 
+							if(team != null)
 								team.setPoints(0);
 						break;
 					case "resn":
-						int i = 0;
+						int i = 1;
 						for (NamedTeamMenu team : Teams)
-							if (team != null) {
-								team.setName(DefaultName.getName(i++));
+							if(team != null){
+								team.setName(defaultName.replace("%i", "" + i++));
+//								team.setName("Team " + ++i);
 							}
 						break;
+					case "online":
+						setOnline(!Online);
 					}
 				}
-
+			
 				updateLiveWindow();
 			}
 
@@ -312,26 +263,23 @@ public class MainMenu {
 					break;
 				case "teams":
 					int t = 0;
-					try {
-						t = Integer.parseInt(tf.getText());
-					} catch (Exception e) {
-						return;
-					}
-					SetUp(t);
-					tf.setText(Maths.clamp(t, 1, Teams.length) + "");
+					try { t = Maths.clamp(Integer.parseInt(tf.getText()), 1, Teams.length);
+					} catch (Exception e) { return; }
+					setTeams(t);
+					tf.setText(t + "");
 					break;
 				}
 			}
-
+			
 			public void onCloseing() {
 				close();
 			}
 		};
 	}
-
+	
 	private static void save() {
 		RCObject out = new RCObject("Main menu");
-		out.addString(new RCString("dName", DefaultName.text));
+		out.addString(new RCString("dName", defaultName));
 		PointSystem.database.addObject(out);
 	}
 
@@ -339,8 +287,69 @@ public class MainMenu {
 		RCObject in = PointSystem.database.getObject("Main menu");
 		if (in == null)
 			return;
-
-		DefaultName.text = in.getString("dName");
+		
+		defaultName = in.getString("dName");
+		
 	}
+	
+	private static class SetDefaultName extends Window {
+		private static final long serialVersionUID = 1L;
+		
+		private static SetDefaultName object;
+		
+		public static void Open() {
+			if (object == null)
+				object = new SetDefaultName();
+			object.setVisible(true);
+		}
+
+		private TextField dName;
+		
+		public SetDefaultName() {
+			super("Set Default Names", 260, 140);
+			
+			setResizable(false);
+			
+			YStrip root = new YStrip();
+			
+			XStrip addons = new XStrip();
+			addons.append(new NBButton(this, "index", "index"));
+			addons.append((BoxObject) null, 3);
+			root.append(addons);
+			
+			root.append(dName = new TextField(this, defaultName, "dName"));
+			
+			XStrip x = new XStrip();
+			x.append(new NBButton(this, "cansel", "cansel"));
+			x.append(new NBButton(this, "done", "done"));
+			root.append(x);
+			
+			setVisible(true);
+			getFrameBox().setInsets(10);
+			getFrameBox().setBoxObject(root);
+		}
+		
+		@Override
+		public void ButtonAction(NBButton button) {
+			
+			switch (button.code) {
+			case "index":
+				dName.setText(dName.getText() + "%i");
+				break;
+			case "cansel":
+				this.setVisible(false);
+				break;
+			case "done":
+				// TODO: Check if the text is valid
+				defaultName = dName.getText();
+				this.setVisible(false);
+				break;
+			}
+		}
+		
+		
+	}
+	
+	
 
 }

@@ -25,13 +25,14 @@ import com.thecherno.raincloud.serialization.RCObject;
 
 public class PointSystem extends Platform {
 
-	public static String Version = "2.8.1";
+	public static String Version = "2.9.0";
 	public static String filedLoc, srcLoc;
 
 	public static RCDatabase database;
 	private static String dataLoc;
 
-	public static BufferedImage Logo, icons;
+	public static BufferedImage Logo; 
+	public static BufferedImage[] icons;
 
 	public PointSystem() {
 		if (OSName.toLowerCase().contains("win"))
@@ -41,7 +42,7 @@ public class PointSystem extends Platform {
 		dataLoc = filedLoc + "/data_" + Version;
 
 		Logo = ImageHandeler.load("/logo.jpg");
-		icons = ImageHandeler.load("/icons.png");
+		icons = ImageHandeler.loadSheet("/icons.png", 10, 10);
 
 		PSData.init();
 		Load();

@@ -5,12 +5,14 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import util.Window;
+import util.swing.gride.BoxObject;
 
-public class TextArea extends JTextArea {
+public class TextArea extends JTextArea implements BoxObject {
 	private static final long serialVersionUID = 1L;
 
 	public String code;
@@ -88,6 +90,11 @@ public class TextArea extends JTextArea {
 	public void setBounds(Rectangle r) {
 		scrol.setBounds(r);
 		super.setBounds(r);
+	}
+
+	@Override
+	public void setPane(JPanel pane) {
+		pane.add(this);
 	}
 	
 	

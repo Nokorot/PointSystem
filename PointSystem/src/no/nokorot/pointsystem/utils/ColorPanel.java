@@ -9,22 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JColorChooser;
+import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 
 import com.thecherno.raincloud.serialization.RCArray;
 import com.thecherno.raincloud.serialization.RCObject;
 
 import util.Window;
-import util.swing.Button;
 import util.swing.ImageList;
+import util.swing.NBButton;
 import util.swing.gride.BoxObject;
 import util.swing.gride.XStrip;
 import util.swing.gride.YStrip;
 
 public class ColorPanel implements BoxObject, ActionListener {
 
-	private static final Color[] defaultColors = {Color.GREEN, Color.RED, Color.BLUE, Color.DARK_GRAY, Color.BLACK, Color.WHITE}; 
- 	
 	public static interface ColorPanalHandaler {
 		public void elementSelected(ColorPanel panal);
 	}
@@ -44,17 +43,17 @@ public class ColorPanel implements BoxObject, ActionListener {
 
 		XStrip x = new XStrip();
 
-		Button pickColor = new Button(window, "pick", "pickColor");
+		NBButton newColor = new NBButton(window, "new", "newColor");
+		newColor.addActionListener(this);
+		x.append(newColor);
+
+		NBButton pickColor = new NBButton(window, "pick", "pickColor");
 		pickColor.addActionListener(this);
 		x.append(pickColor);
 		
-		Button removeColor = new Button(window, "trash", "removeColor");
+		NBButton removeColor = new NBButton(window, "track", "removeColor");
 		removeColor.addActionListener(this);
 		x.append(removeColor);
-		
-		Button newColor = new Button(window, "new", "newColor");
-		newColor.addActionListener(this);
-		x.append(newColor);
 
 		root.append(x);
 		
@@ -68,10 +67,11 @@ public class ColorPanel implements BoxObject, ActionListener {
 			}
 		});
 		root.append(colorList, 6);
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		switch (((Button) e.getSource()).code) {
+		switch (((NBButton) e.getSource()).code) {
 		case "newColor": 
 			addColor(JColorChooser.showDialog(null, "Find a color", Color.white));
 			break;
@@ -148,12 +148,8 @@ public class ColorPanel implements BoxObject, ActionListener {
 	}
 
 	public void loadRCObject(RCObject subObject) {
-		if (subObject == null){
-			for (Color c : defaultColors){
-				addColor(c);
-			}
-		}
-		System.out.println(subObject);
+		if (subObject == null)
+			return;
 
 		RCArray array = subObject.getArray("colors");
 		if (array == null)
@@ -165,6 +161,10 @@ public class ColorPanel implements BoxObject, ActionListener {
 			addColor(new Color(i));
 		
 		colorList.repaint();
+	}
+
+	public void setPane(JPanel pane) {
+		root.setPane(pane);
 	}
 	
 }

@@ -1,6 +1,5 @@
 package no.nokorot.pointsystem.Element;
 
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -15,20 +14,34 @@ public class NamedTeam extends LiveWindow.Element {
 	private static float nameHeight = 0.25f, overlapp = 0.07f;
 
 	private Team team;
-
+	
 	private JLabel name, pointsLabel;
 
+	private FontObject nameFont, pointsFont;
+	
 	private float x, y, width, height;
 
 	public NamedTeam(Label l, Team team, float x, float y, float width, float height) {
-		name = new JLabel();
-		name.setHorizontalAlignment(JLabel.CENTER);
-		name.setVerticalAlignment(JLabel.CENTER);
+		name = new JLabel(){
+			private static final long serialVersionUID = 1L;
+
+			protected void paintComponent(Graphics g) {
+				Rectangle bounds = this.getBounds();
+				bounds.x = bounds.y = 0;
+				nameFont.drawString(g, this.getText(), bounds);
+			}
+		};
 		l.add(name);
 
-		pointsLabel = new JLabel();
-		pointsLabel.setHorizontalAlignment(JLabel.CENTER);
-		pointsLabel.setVerticalAlignment(JLabel.CENTER);
+		pointsLabel = new JLabel(){
+			private static final long serialVersionUID = 1L;
+
+			protected void paintComponent(Graphics g) {
+				Rectangle bounds = this.getBounds();
+				bounds.x = bounds.y = 0;
+				pointsFont.drawString(g, this.getText(), bounds);		
+			}
+		};
 		l.add(pointsLabel);
 
 		this.team = team;
@@ -63,15 +76,13 @@ public class NamedTeam extends LiveWindow.Element {
 
 		name.setLocation(x, y);
 		name.setSize(width, (int) (height * nameHeight));
-		name.setForeground(team.fontName.getColor());
+		nameFont = team.fontName;
 		name.setText(team.name);
-		setFontSize(name, team.fontName);
 		
 		pointsLabel.setLocation(x, y + (int) (height * (nameHeight - overlapp)));
 		pointsLabel.setSize(width, (int) (height * (1 - nameHeight + overlapp)));
-		pointsLabel.setForeground(team.fontPoints.getColor());
+		pointsFont = team.fontPoints;
 		pointsLabel.setText(team.stringedP());
-		setFontSize(pointsLabel, team.fontPoints);
 	}
 
 	public void setVisible(boolean visible) {
@@ -79,14 +90,14 @@ public class NamedTeam extends LiveWindow.Element {
 		pointsLabel.setVisible(visible);
 	}
 
-	private void setFontSize(JLabel l, FontObject fontName){
-		int size = fontName.getFittingFontSize(l.getWidth(), l.getHeight(), l.getText());
-		l.setFont(new Font(fontName.getFontname(), fontName.getStyle(), size));
-	}
-
 	@Override
 	public void render(Graphics g) {
-		name.repaint();
+		//name.paintComponents(g);
+//		if (name == null || nameFont == null)
+//			return;
+
+//		nameFont.drawString(g, name.getText(), name.getBounds());
+//		pointsFont.drawString(g, pointsLabel.getText(), pointsLabel.getBounds());
 	}
 
 }

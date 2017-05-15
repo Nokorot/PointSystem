@@ -1,0 +1,21 @@
+Hey, to get started you have to go to the following page:
+
+pointsystemo.herokuapp.com
+
+(or scan the bellow QR-code)
+
+Here, will you find a text box. To connect to the right
+computer you have to write in the same code as you can find
+on you computer. Before you press "Go Online", you can 
+choose this code by writing it in to the text field under 
+"Code", on your computer. The code have to be 4-10 
+symbols long. If you choose to not make any code, one will 
+be generated for you. 
+After you have written the right code in to the text box on
+the web page, you will get to a  editable page, witch is 
+synchronized with you computer, as long as the "Go Online" 
+button is activated.
+As long as "Go Online" is activated you are not able to 
+change the points from the computer. However you can 
+change the names and it is possible to turn it of and 
+then on again, but it is not synchronizing in this period.

@@ -2,20 +2,11 @@ package util.handelers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
-import java.nio.file.WatchEvent.Kind;
-import java.nio.file.WatchEvent.Modifier;
 import java.util.ArrayList;
 import java.util.Formatter;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -68,6 +59,13 @@ public class FileHandler {
 
 	public static Scanner scan(int i) {
 		return (Scanner) scans.get(i);
+	}
+
+	
+	public static String readLocalFile(String path){
+		ClassLoader classLoader = FileHandler.class.getClassLoader();
+		File file = new File(classLoader.getResource(path).getFile());
+		return readFile(file);
 	}
 
 	public static String readFile(String path) {

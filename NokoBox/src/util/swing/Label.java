@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import util.Window;
 import util.handelers.ImageHandeler;
@@ -88,6 +89,10 @@ public class Label extends JLabel implements BoxObject {
 	
 	public Label(Window w){
 		this(w, null, null, "");
+	}
+	
+	public void setPane(JPanel pane) {
+		pane.add(this);
 	}
 
 	public void setImageIcon(BufferedImage image){

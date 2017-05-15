@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
@@ -57,6 +58,10 @@ public class TextList extends JList<String> implements BoxObject {
 
 	public TextList(Window window) {
 		this(window, new Rectangle());
+	}
+	
+	public void setPane(JPanel pane) {
+		pane.add(this);
 	}
 
 	public void addElement(String element) {

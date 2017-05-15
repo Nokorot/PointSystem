@@ -4,17 +4,19 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.Rectangle;
 
+import javax.swing.JPanel;
+
 import util.swing.gride.BoxObject.PreferdBoxObject;
 
-public class Box {
+public class Box implements BoxObject {
 
 	private boolean visible = true; 
 	
 	public double x, y, width, height;
 	public Insets insets = new Insets(3, 3, 3, 3);
 
-	private Component component;
-	private BoxObject object;
+	protected Component component;
+	protected BoxObject object;
 
 	public Box(){
 	}
@@ -53,6 +55,16 @@ public class Box {
 		this.height = height;
 		
 		update();
+	}
+	
+	public void setPane(JPanel pane) {
+		if (component != null){
+			pane.add(component);
+		}
+
+		if (object != null){
+			object.setPane(pane);
+		}
 	}
 
 	public void setTopInset(int inset) {
@@ -143,7 +155,7 @@ public class Box {
 		}
 			
 		this.object = object;
-		update();
+//		update();
 	}
 
 	public BoxGrid getInsideGrid() {
@@ -197,5 +209,10 @@ public class Box {
 			object.setVisible(visable);
 	}
 
+	public void setBounds(Rectangle r) {
+		setBounds(r.x, r.y, r.width, r.height);
+	}
+
+	
 	
 }

@@ -6,9 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
 import util.Window;
 import util.swing.gride.BoxObject;
@@ -62,6 +61,10 @@ public class PopDownTextField extends JComboBox<String> implements BoxObject {
 
 	public PopDownTextField(Window window) {
 		this(window, null, null);
+	}
+	
+	public void setPane(JPanel pane) {
+		pane.add(this);
 	}
 
 	protected void onAction() {

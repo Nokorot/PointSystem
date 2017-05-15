@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 import util.adds.UpdateAdd;
-import util.swing.Button;
+import util.swing.NBButton;
 import util.swing.ButtonSetings;
 import util.swing.LabelSetings;
 import util.swing.PopDownTextField;
@@ -263,11 +263,11 @@ public class Window extends JFrame {
 	public void Init() {
 		BoxGrid grid = this.getGrid(1, new double[]{1, 1, 3});
 
-		Button b;
+		NBButton b;
 		TextField tf;
 		TextArea ta;
 		
-		b = new Button(this, "Button");
+		b = new NBButton(this, "Button");
 		tf = new TextField(this);
 		tf.setHorizontalAlignment(0);
 		tf.setText("TextField");
@@ -314,7 +314,7 @@ public class Window extends JFrame {
 	protected void KeyPressed(int key) {}
 	protected void KeyReleased(int key) {}
 
-	public void ButtonAction(Button button) { System.out.println(button); }
+	public void ButtonAction(NBButton button) { System.out.println(button); }
 	public void TextFieldAction(TextField field) {}
 	public void PopDownTextFieldAction(PopDownTextField source) {}
 	public void TextListAction(TextList source) {}

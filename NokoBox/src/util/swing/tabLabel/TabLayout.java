@@ -3,13 +3,13 @@ package util.swing.tabLabel;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import util.swing.Button;
+import util.swing.NBButton;
 
 public abstract class TabLayout {
 	
 	protected int buttonHeight = 0;
 
-	protected abstract void paintButton(Button button, Graphics g, boolean Active);
+	protected abstract void paintButton(NBButton button, Graphics g, boolean Active);
 	protected abstract void paintLabel(TabLabel label, Graphics g);
 	
 	public void setButtonHeight(int x){
@@ -36,7 +36,7 @@ public abstract class TabLayout {
 		public RoundRecTabLayout(){
 		}
 
-		protected void paintButton(Button button, Graphics g, boolean Active) {
+		protected void paintButton(NBButton button, Graphics g, boolean Active) {
 			int width = button.getWidth() - 1;
 			int height = button.getHeight() -1 ;
 			
@@ -89,7 +89,7 @@ public abstract class TabLayout {
 		public NunTabLayout(){
 		}
 
-		protected void paintButton(Button button, Graphics g, boolean Active) {
+		protected void paintButton(NBButton button, Graphics g, boolean Active) {
 //			int width = button.getWidth() - 1;
 //			int height = button.getHeight() -1 ;
 //

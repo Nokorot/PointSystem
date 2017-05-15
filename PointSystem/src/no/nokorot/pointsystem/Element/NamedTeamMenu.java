@@ -2,9 +2,13 @@ package no.nokorot.pointsystem.Element;
 
 import java.awt.Rectangle;
 
+import javax.swing.JPanel;
+
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import no.nokorot.pointsystem.Windows.MainMenu;
 import util.Window;
-import util.swing.Button;
+import util.swing.NBButton;
 import util.swing.TextField;
 import util.swing.gride.BoxObject;
 import util.swing.gride.XStrip;
@@ -16,28 +20,20 @@ public class NamedTeamMenu implements BoxObject {
 
 	private Team team;
 
-	private YStrip root;
+	private BoxObject root;
+	private YStrip root0, root1;
+	
 	private Window menu;
 	private TextField nameLabel, pointsLabel;
-
+	private NBButton add, sub;
+	
 	public NamedTeamMenu(Window menu, Team team) {
+		System.out.println(team);
 		this.team = team;
 		this.menu = menu;
 
 		Objects();
 	}
-
-	/*public NamedTeamMenu(Window menu, Box box, Team team) {
-		this.team = team;
-		this.menu = menu;
-
-		bG = box.getInsideGrid(1, 2);
-		Objects();
-	}
-
-	public void setBox(Box box) {
-		box.setBoxObject(bG);
-	}*/
 
 	public void setBounds(Rectangle bounds) {
 		root.setBounds(bounds);
@@ -57,6 +53,10 @@ public class NamedTeamMenu implements BoxObject {
 		MainMenu.updateLiveWindow();
 	}
 
+	public int getPoints() {
+		return team.points;
+	}
+
 	public void setName(String name) {
 		team.name = name;
 		nameLabel.setText(name);
@@ -66,8 +66,6 @@ public class NamedTeamMenu implements BoxObject {
 	@SuppressWarnings("serial")
 	private void Objects() {
 		
-		root = new YStrip();
-		
 		nameLabel = new TextField(menu, team.name) {
 			protected void onAction() {
 				team.name = nameLabel.getText();
@@ -75,36 +73,61 @@ public class NamedTeamMenu implements BoxObject {
 			}
 		};
 		
-		root.append(nameLabel);//.setInsets(3);
-		
-		
-		XStrip x = new XStrip();
-		
-		x.append(new Button(menu, "-") {
+		sub = new NBButton(menu, "-") {
 			public void onAction() {
 				team.points -= Integer.parseInt(MainMenu.GivenPoints.getText());
 				pointsLabel.setText(team.stringedP());
 				MainMenu.updateLiveWindow();
 			}
-		});
+		};
 		
-		x.append(pointsLabel = new TextField(menu, team.stringedP()) {
-			protected void onAction() {
-				team.setP(pointsLabel.getText());
-				pointsLabel.setText(team.stringedP());
-				MainMenu.updateLiveWindow();
-			}
-		});
-		
-		x.append(new Button(menu, "+") {
+		add = new NBButton(menu, "+") {
 			public void onAction() {
 				team.points += Integer.parseInt(MainMenu.GivenPoints.getText());
 				pointsLabel.setText(team.stringedP());
 				MainMenu.updateLiveWindow();
 			}
-		});
+		};
 		
-		root.append(x);
+		pointsLabel = new TextField(menu, team.stringedP()) {
+			protected void onAction() {
+				team.setP(pointsLabel.getText());
+				pointsLabel.setText(team.stringedP());
+				MainMenu.updateLiveWindow();
+			}
+		};
 		
+
+		root0 = new YStrip();
+		root0.append(nameLabel);//.setInsets(3);
+		XStrip x = new XStrip();
+		x.append(sub);
+		x.append(pointsLabel);
+		x.append(add);
+		root0.append(x);
+		
+		root1 = new YStrip();
+		root1.append(nameLabel);//.setInsets(3);
+		root1.append(pointsLabel);
+		
+		root = root0;
+	}
+
+	public void setEditable(boolean editable) {
+		if (editable){
+			root = root0;
+			pointsLabel.setEditable(true);
+			add.setVisible(true);
+			sub.setVisible(true);
+		} else{
+			root = root1;
+			pointsLabel.setEditable(false);
+			add.setVisible(false);
+			sub.setVisible(false);
+		}
+	}
+
+	public void setPane(JPanel pane) {
+		root.setPane(pane);
 	}
 }

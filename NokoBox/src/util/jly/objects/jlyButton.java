@@ -2,13 +2,13 @@ package util.jly.objects;
 
 import util.Window;
 import util.jly.contObject;
-import util.swing.Button;
+import util.swing.NBButton;
 
 public class jlyButton {
 
-	public static Button Build(Window window, contObject o) {
+	public static NBButton Build(Window window, contObject o) {
 		
-		Button b = new Button(window);
+		NBButton b = new NBButton(window);
 		b.setText(o.getF("").data);
 		
 		return b;

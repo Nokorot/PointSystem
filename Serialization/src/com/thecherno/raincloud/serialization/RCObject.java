@@ -222,8 +222,8 @@ public class RCObject extends RCBase {
 		if(!fields.containsKey(key)) return -1;
 		return getField(key).intData();
 	}
-	
-	public float getFloat(String key) {
+
+	public float getFlaot(String key) {
 		if(!fields.containsKey(key)) return -1;
 		return getField(key).floatData();
 	}

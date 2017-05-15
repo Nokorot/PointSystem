@@ -3,7 +3,7 @@ package util.jly.objects;
 import util.Window;
 import util.jly.contField;
 import util.jly.contObject;
-import util.swing.Button;
+import util.swing.NBButton;
 import util.swing.Label;
 import util.swing.TextField;
 import util.swing.gride.Box;
@@ -96,7 +96,7 @@ public class Body {
 	}
 
 	private static void buildButton(contObject object, Box box) {
-		Button b = new Button(lWindow, object.data, object.getP("").data);
+		NBButton b = new NBButton(lWindow, object.data, object.getP("").data);
 		box.setComponent(b);
 	}
 

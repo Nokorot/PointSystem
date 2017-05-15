@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.swing.JPanel;
+
 import util.math.Maths;
 
 public class BoxGrid implements BoxObject, Iterable<Box> {
@@ -64,6 +66,12 @@ public class BoxGrid implements BoxObject, Iterable<Box> {
 
 	public BoxGrid(Rectangle bounds, int xSize, double[] y) {
 		this(bounds, newD(xSize), y);
+	}
+	
+	public void setPane(JPanel pane) {
+		for (Box b : mBoxes.values()){
+			b.setPane(pane);
+		}
 	}
 
 	public static double[] newD(int s) {

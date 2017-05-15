@@ -45,7 +45,7 @@ public class ColorPicker extends JDialog {
 
 		setLayout(null);
 
-		JLabel info = new JLabel("Sellect color by pressing \"P\"");
+		JLabel info = new JLabel("Sellect color by bresing \"P\"");
 		info.setHorizontalAlignment(JLabel.CENTER);
 		info.setBounds(0, 50, 250, 50);
 		add(info);

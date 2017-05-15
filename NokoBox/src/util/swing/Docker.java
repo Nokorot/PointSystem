@@ -75,7 +75,7 @@ public class Docker {
 
     private void initTimers() {
         dockeeMoveTimer = new Timer(movedReactTime, new AbstractAction() {
-            @Override
+			private static final long serialVersionUID = 1L;
             public void actionPerformed(ActionEvent ae) {
                 iterateDockables();
             }
@@ -261,7 +261,8 @@ public class Docker {
 
     private Timer followDockableTimer(final Component comp, final int finalX, final int finalY) {
         Timer t = new Timer(1, new AbstractAction() {
-            int INCREMENT = 1, DECREMENT = 1;
+			private static final long serialVersionUID = 1L;
+			int INCREMENT = 1, DECREMENT = 1;
             int x = comp.getX(), y = comp.getY();
 
             @Override
@@ -316,7 +317,9 @@ public class Docker {
 
     private Timer stickyDockableTimer(final Component comp, final int finalX, final int finalY) {
         Timer t = new Timer(1, new AbstractAction() {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void actionPerformed(ActionEvent ae) {
                 comp.setLocation(finalX, finalY);
             }
@@ -326,8 +329,8 @@ public class Docker {
     }
 
     private class MyButton extends JButton {
-
-        private final Component c;
+		private static final long serialVersionUID = 1L;
+		private final Component c;
         private final String pos;
 
         public MyButton(String text, Component c, String pos) {

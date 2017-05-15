@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import util.adds.UpdateAdd;
 import util.handelers.ImageHandeler;
 import util.handelers.ImageHandeler.ScaleType;
-import util.swing.Button;
+import util.swing.NBButton;
 import util.swing.gride.BoxGrid;
 
 public class Tab {
@@ -24,7 +24,7 @@ public class Tab {
 	
 	private TabLabel label;
 	
-	private Button button;
+	private NBButton button;
 	private BoxGrid boxGrid;
 
 	public Tab(TabLabel label, String title) {
@@ -33,7 +33,7 @@ public class Tab {
 		
 		Tab tab = this;
 
-		button = new Button(label.window, title){
+		button = new NBButton(label.window, title){
 			private static final long serialVersionUID = 1L;
 
 			protected void paintComponent(Graphics g){
@@ -65,7 +65,7 @@ public class Tab {
 		}
 	}
 	
-	public Button getButton(){
+	public NBButton getButton(){
 		return button;
 	}
 	

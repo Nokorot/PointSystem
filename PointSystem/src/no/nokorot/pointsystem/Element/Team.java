@@ -15,6 +15,9 @@ public class Team {
 			TEAMS[i] = new Team("Team " + (i + 1));
 	}
 	
+	public NamedTeam label;
+	public NamedTeamMenu menu;
+	
 	public String name;
 	public int points;
 

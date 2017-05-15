@@ -22,8 +22,8 @@ public class Grab {
 	public Color c1 = Color.WHITE, c2 = Color.RED;
 	boolean color = true, text = false;
 	
-	static BufferedImage image = ImageHandeler.cut(PointSystem.icons, 0, 0, 80);
-	static BufferedImage image2 = ImageHandeler.cut(PointSystem.icons, 1, 0, 80);
+	static BufferedImage image = ImageHandeler.createImage_Cercel(80, 80, Color.GREEN, null);//ImageHandeler.cut(PointSystem.icons, 0, 0, 80);
+	static BufferedImage image2 = ImageHandeler.createImage_Cercel(80, 80, Color.RED, null);//ImageHandeler.cut(PointSystem.icons, 1, 0, 80);
 
 	public Grab(JButton button, BufferedImage img1, BufferedImage img2, boolean b) {
 		this.button = button;

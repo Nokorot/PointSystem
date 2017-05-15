@@ -58,8 +58,9 @@ public class LiveWindow {
 
 		label.getGraphics();
 
-		for (int i = 0; i < TEAMS.length; i++)
+		for (int i = 0; i < TEAMS.length; i++){
 			Teams[i] = new NamedTeam(label, TEAMS[i], new Rectangle());
+		}
 		add(Teams);
 	}
 
@@ -92,13 +93,13 @@ public class LiveWindow {
 	public static void setCleared(boolean clear) {
 		cleared = clear;
 
-		if(Mode != 0)
+		if (Mode != 0)
 			return;
 		for (Element element : elements)
-			if(element.Active)
+			if (element.Active)
 				element.setVisible(!clear);
 	}
-	
+
 	public static boolean isCleared() {
 		return cleared;
 	}
@@ -143,6 +144,7 @@ public class LiveWindow {
 			for (Element element : elements) {
 				element.update();
 			}
+		label.repaint();
 	}
 
 	public static void render() {
@@ -171,7 +173,7 @@ public class LiveWindow {
 
 		label.setIcon(new ImageIcon(image));
 	}
-
+	
 	private static void renderScaledImage(Graphics g, BufferedImage image, ScaleType scaleType) {
 		if (image == null)
 			return;
@@ -183,16 +185,16 @@ public class LiveWindow {
 			System.exit(1);
 			return;
 		}
-		g.drawImage(scaledLogo, getWidth() / 2 - scaledLogo.getWidth() / 2,//
+		g.drawImage(scaledLogo, getWidth() / 2 - scaledLogo.getWidth() / 2, //
 				getHeight() / 2 - scaledLogo.getHeight() / 2, scaledLogo.getWidth(), //
 				scaledLogo.getHeight(), null);
 	}
 
 	public static abstract class Element {
 		public abstract void render(Graphics g);
-		
+
 		private boolean Active = true;
-		
+
 		public void setActive(boolean active) {
 			Active = active;
 			setVisible(active && !cleared);
@@ -277,14 +279,12 @@ public class LiveWindow {
 
 	private static int addIII(BoxGrid grid, int team, int a) {
 		for (int i = 0; i < a; i++) {
-			BoxGrid g = grid.getBox(i).getInsideGrid(new double[]{1, 6, 1, 6, 1, 6, 1}, 1);
+			BoxGrid g = grid.getBox(i).getInsideGrid(new double[] { 1, 6, 1, 6, 1, 6, 1 }, 1);
 			addTeam(g.getBox(1), team++);
 			addTeam(g.getBox(3), team++);
 			addTeam(g.getBox(5), team++);
 		}
 		return team;
 	}
-
-	
 
 }

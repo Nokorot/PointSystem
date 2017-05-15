@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.JColorChooser;
 import javax.swing.event.ListSelectionEvent;
 
-import com.thecherno.raincloud.serialization.RCDatabase;
 import com.thecherno.raincloud.serialization.RCObject;
 
 import engineTest.ImagePreviewFileChooser;
@@ -22,9 +21,9 @@ import no.nokorot.pointsystem.Element.ImageElement;
 import no.nokorot.pointsystem.utils.ColorPicker;
 import util.Window;
 import util.handelers.ImageHandeler.ScaleType;
-import util.swing.Button;
 import util.swing.ImageList;
 import util.swing.Label;
+import util.swing.NBButton;
 import util.swing.PopDownTextField;
 import util.swing.SwitchButton;
 import util.swing.gride.Box;
@@ -42,7 +41,7 @@ public class BackgroundEditor {
 
 	private static Window window;
 
-	private static Button bacground, logo;
+	private static NBButton bacground, logo;
 	private static PopDownTextField scale;
 	private static Label img;
 
@@ -59,7 +58,7 @@ public class BackgroundEditor {
 	private static ImageList imageList;
 	private static ImageList colorList;
 	private static XStrip colorType;
-	private static Button brows, findColor, pickColor;
+	private static NBButton brows, findColor, pickColor;
 
 	private static ScaleType scaleType = ScaleType.TILLPASS;
 	private static String lastLocation = System.getProperty("user.home");
@@ -97,14 +96,14 @@ public class BackgroundEditor {
 				labelSets.setFontSize(15);
 
 				topGrid.setComponent(new Label(this, "Bacground"), 0, 0);
-				bacground = new Button(this);
+				bacground = new NBButton(this);
 				bacground.setIcon(PSData.backgroundImage, PSData.backgroundScaleType);
 				Box backBox = topGrid.getBox(0, 1);
 				backBox.setRightInset(0);
 				backBox.setComponent(bacground);
 
 				topGrid.setComponent(new Label(this, "Logo"), 1, 0);
-				logo = new Button(this);
+				logo = new NBButton(this);
 				logo.setIcon(PSData.logo, PSData.logoScaleType);
 				Box logoBox = topGrid.getBox(1, 1);
 				logoBox.setRightInset(0);
@@ -124,12 +123,12 @@ public class BackgroundEditor {
 				BoxGrid rTopGrid = bg.getBox(1, 0).getInsideGrid(2, 1);
 
 				typeSwitch = new SwitchButton(this, SwitchButton.STRING, "Images", "Colors");
-				typeSwitch.setActive(1);
+				typeSwitch.setActiveIndex(1);
 				rTopGrid.setComponent(typeSwitch, 1);
 
-				brows = new Button(this, "Browse");
-				findColor = new Button(this, "Find");
-				pickColor = new Button(this, "Pick");
+				brows = new NBButton(this, "Browse");
+				findColor = new NBButton(this, "Find");
+				pickColor = new NBButton(this, "Pick");
 				
 				colorType = new XStrip();
 				colorType.append(findColor).setInsets(0, 0, 0, 3);
@@ -162,7 +161,7 @@ public class BackgroundEditor {
 				panel.setBackground(Color.DARK_GRAY);
 			}
 
-			public void ButtonAction(Button b) {
+			public void ButtonAction(NBButton b) {
 				if (b == bacground) {
 					selectBackground();
 				}
@@ -221,7 +220,7 @@ public class BackgroundEditor {
 		};
 
 		ImageElement.init(imageList, (ImageElement e) -> setImage(e.getImage(), e.getPath()));
-		ImageElement.addImage(PSData.logo, true, true);
+		ImageElement.addImage(PSData.logo, true, false);
 
 		img.setImageIcon(PSData.backgroundImage);
 		setScale(PSData.backgroundScaleType);
@@ -292,6 +291,7 @@ public class BackgroundEditor {
 			colors.add(color);
 			colorList.addImage(image, true);
 			colorList.repaint();
+			System.out.println(colorList.getElementCount());
 		}
 	}
 

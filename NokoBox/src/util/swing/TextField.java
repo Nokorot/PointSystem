@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import util.Window;
@@ -79,6 +80,10 @@ public class TextField extends JTextField implements BoxObject {
 	
 	public TextField(Window window){
 		this(window, null, null, true);
+	}
+	
+	public void setPane(JPanel pane) {
+		pane.add(this);
 	}
 	
 	

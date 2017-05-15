@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 import java.util.Iterator;
 import java.util.Vector;
 
+import javax.swing.JPanel;
+
 import util.swing.gride.BoxObject.PreferdBoxObject;
 
 public abstract class Strip implements PreferdBoxObject, Iterable<Box> {
@@ -17,6 +19,12 @@ public abstract class Strip implements PreferdBoxObject, Iterable<Box> {
 	protected Vector<Box> boxes = new Vector<>();
 	
 	protected Strip() {
+	}
+	
+	public void setPane(JPanel pane) {
+		for (Box b : boxes){
+			b.setPane(pane);
+		}
 	}
 	
 	public static double[] newD(int s) {
@@ -116,8 +124,9 @@ public abstract class Strip implements PreferdBoxObject, Iterable<Box> {
 	}
 	
 	public Box getBox(int i) {
-		if (i >= this.size())
+		if (this.size() == 0)
 			System.exit(1);
+		i = (i + this.size()) % this.size();
 		return boxes.get(i);
 	}
 	
