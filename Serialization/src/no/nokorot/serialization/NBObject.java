@@ -7,15 +7,18 @@ import static com.thecherno.raincloud.serialization.SerializationUtils.readStrin
 import static com.thecherno.raincloud.serialization.SerializationUtils.writeBytes;
 
 import java.awt.Dimension;
-import java.util.Collection;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.Map;
+import java.util.Vector;
+
+import com.thecherno.raincloud.serialization.RCArray;
+import com.thecherno.raincloud.serialization.RCObject;
+import com.thecherno.raincloud.serialization.RCString;
 
 public abstract class NBObject {
 
 //	public static final byte CONTAINER_TYPE = ContainerType.OBJECT;
 	
-	Map<String, Fields> content;
+	Map<String, NBField> content;
 	
 //	private short fieldCount;
 //	SortedMap<String, NBField> fields = new TreeMap<String, NBField>();
@@ -26,8 +29,7 @@ public abstract class NBObject {
 
 //	private int dataSize;
 	
-	public RCObject(String name){
-		this();
+	public NBObject(String name){
 		setName(name);
 		
 		

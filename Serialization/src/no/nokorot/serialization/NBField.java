@@ -1,6 +1,19 @@
 package no.nokorot.serialization;
 
-import static com.thecherno.raincloud.serialization.SerializationUtils.*;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readBoolean;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readByte;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readBytes;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readChar;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readDouble;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readFloat;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readInteger;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readLong;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readShort;
+import static com.thecherno.raincloud.serialization.SerializationUtils.readString;
+import static com.thecherno.raincloud.serialization.SerializationUtils.writeBytes;
+
+import com.thecherno.raincloud.serialization.RCBase;
+import com.thecherno.raincloud.serialization.Type;
 
 public class NBField extends RCBase {
 
