@@ -3,11 +3,14 @@ package no.nokorot.pointsystem.Windows;
 import static no.nokorot.pointsystem.Element.Team.TEAMS;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Random;
@@ -197,10 +200,39 @@ public class OnlineTeamPanel {
 						TextArea ta;
 						ta = new TextArea(this, true);
 						ta.setEditable(false);
-						ta.setText(FileHandler.readLocalFile("info.txt"));
+						String text;
+						try {
+							text = FileHandler.readLocalFile("info.txt");
+							ta.setText(text);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 						root.append(ta, 2);
 						
-						Label qr = new Label(this);
+						NBButton qr = new NBButton(this);
+						qr.addActionListener((ActionEvent e) -> {
+							System.out.println("Hey");
+						    URI uri;
+							try {
+								uri = new URL(url).toURI();
+							
+						    
+								Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+							    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+							        try {
+							            desktop.browse(uri);
+							        } catch (Exception e1) {
+							            e1.printStackTrace();
+							        }
+							    }
+						    } catch (MalformedURLException | URISyntaxException e2) {
+								e2.printStackTrace();
+							}
+
+							
+							
+						});
+						qr.setBackground(Color.DARK_GRAY);
 						qr.setIcon(ImageHandeler.load("/onlineQR.png"), ScaleType.TILLPASS);
 						root.append(qr);
 						

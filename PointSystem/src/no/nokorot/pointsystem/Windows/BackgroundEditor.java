@@ -3,9 +3,17 @@ package no.nokorot.pointsystem.Windows;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +28,7 @@ import no.nokorot.pointsystem.PointSystem;
 import no.nokorot.pointsystem.Element.ImageElement;
 import no.nokorot.pointsystem.utils.ColorPicker;
 import util.Window;
+import util.handelers.ImageHandeler;
 import util.handelers.ImageHandeler.ScaleType;
 import util.swing.ImageList;
 import util.swing.Label;
@@ -79,13 +88,15 @@ public class BackgroundEditor {
 				textfeldSets.setFontSize(10);
 				
 				setVisible(true);
-				BoxGrid bg = getGrid(new double[] { 2, 1.3 },
+				BoxGrid bg = getGrid(new double[] { 2, 1.3},
 						new double[] { TOPP_BAR_HEIGHT, getPlaneHeight() - TOPP_BAR_HEIGHT });
 				// bg.setInsets(3);
 				bg.setExpX(new double[] { 1, 0 });
 				bg.setExpY(new double[] { 0, 1 });
 
 				bg.getBox(0, 1).setComponent(img = new Label(this));
+				img.setOpaque(true);
+				img.setDropTarget(new DropTarget(img, new ImageDropTargetListener()));
 
 				BoxGrid topGrid = bg.getBox(0, 0).getInsideGrid(new double[] { 1, 1, 1, 2 },
 						new double[] { 1, 2 });
@@ -139,6 +150,8 @@ public class BackgroundEditor {
 
 				imageList = new ImageList(this, "imageList");
 				imageList.setBackground(Color.LIGHT_GRAY);
+				imageList.setDropTarget(new DropTarget(imageList, new ImageDropTargetListener()));
+				
 				imageList.addListSelectionListener((ListSelectionEvent e) -> {
 					if (e.getValueIsAdjusting()) {
 						colorList.clearSelection();
@@ -226,7 +239,6 @@ public class BackgroundEditor {
 		setScale(PSData.backgroundScaleType);
 		load();
 	}
-	
 
 	public static void Open(boolean viwe) {
 		if (window == null)
@@ -330,6 +342,54 @@ public class BackgroundEditor {
 
 		img.setImageIcon(image);
 		MainMenu.updateLiveWindow();
+	}
+	
+	private static class ImageDropTargetListener extends DropTargetAdapter {
+		public void drop(DropTargetDropEvent e) {
+			
+			try {
+				String data;
+				Transferable t = e.getTransferable();
+
+				if (e.isDataFlavorSupported(DataFlavor.getTextPlainUnicodeFlavor())) {
+					e.acceptDrop(e.getDropAction());
+
+					StringBuffer sb = new StringBuffer();
+					InputStream is = (InputStream) t.getTransferData(DataFlavor.getTextPlainUnicodeFlavor());
+					int i;
+					while ((i = is.read()) != -1)
+						if (i != 0)
+							sb.append((char) i);
+					
+					data = new String(sb);
+
+					e.dropComplete(true);
+				} else if (e.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+					e.acceptDrop(e.getDropAction());
+
+					data = (String) t.getTransferData(DataFlavor.stringFlavor);
+
+					e.dropComplete(true);
+				} else{
+					e.rejectDrop();
+					return;
+				}
+				
+				new Thread(() -> {
+				for (String s : data.split("\n")){
+					if (s.startsWith("file://")){
+						File f = new File(s.substring("file://".length(), s.length()-1));
+						ImageElement.addImage(f, true, false);
+					}
+				}
+				}).start();
+				System.out.println("Hey");
+				
+			} catch (IOException e2) {
+			} catch (UnsupportedFlavorException e2) {
+			}
+			
+		}
 	}
 	
 }

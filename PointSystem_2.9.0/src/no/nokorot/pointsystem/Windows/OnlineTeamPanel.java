@@ -197,7 +197,11 @@ public class OnlineTeamPanel {
 						TextArea ta;
 						ta = new TextArea(this, true);
 						ta.setEditable(false);
-						ta.setText(FileHandler.readLocalFile("info.txt"));
+						try {
+							ta.setText(FileHandler.readLocalFile("info.txt"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 						root.append(ta, 2);
 						
 						Label qr = new Label(this);

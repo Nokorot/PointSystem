@@ -1,27 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.Scanner"/>
-<fullyQualifiedTypeName name="LiveImage.ScaleType"/>
-<fullyQualifiedTypeName name="shaders.ShaderProgram"/>
-<fullyQualifiedTypeName name="guis.GuiRenderer"/>
-<fullyQualifiedTypeName name="guis.GuiShader"/>
-<fullyQualifiedTypeName name="java.awt.Image"/>
-<fullyQualifiedTypeName name="utils.Matrix4f"/>
-<fullyQualifiedTypeName name="engine.Display.Operation"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.awt.Rectangle"/>
-<fullyQualifiedTypeName name="fontMeshCreator.GUIText"/>
-<fullyQualifiedTypeName name="utils.Vector2f"/>
-<fullyQualifiedTypeName name="engineTest.LiveWindow"/>
-<fullyQualifiedTypeName name="java.lang.Integer"/>
-<fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
-<fullyQualifiedTypeName name="java.util.Map"/>
-<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="textures.Texture"/>
-<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
 <fullyQualifiedTypeName name="utils.Vector4f"/>
 <fullyQualifiedTypeName name="java.awt.Label"/>
 <fullyQualifiedTypeName name="util.swing.Label"/>
@@ -37,7 +15,6 @@
 <fullyQualifiedTypeName name="util.swing.TextField"/>
 <fullyQualifiedTypeName name="java.lang.Double"/>
 <fullyQualifiedTypeName name="util.swing.gride.XStrip"/>
-<fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="fontRendering.TextMaster"/>
 <fullyQualifiedTypeName name="engineTest.FontManager.NumField"/>
 <fullyQualifiedTypeName name="fontRendering.FontMaterial"/>
@@ -60,4 +37,27 @@
 <fullyQualifiedTypeName name="guis.GuiTexture"/>
 <fullyQualifiedTypeName name="engine.Display"/>
 <fullyQualifiedTypeName name="com.thecherno.raincloud.serialization.Type"/>
+<fullyQualifiedTypeName name="javax.swing.BoxLayout"/>
+<fullyQualifiedTypeName name="de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel"/>
+<fullyQualifiedTypeName name="javax.swing.JLabel"/>
+<fullyQualifiedTypeName name="java.awt.dnd.DropTarget"/>
+<fullyQualifiedTypeName name="java.awt.dnd.DropTargetListener"/>
+<fullyQualifiedTypeName name="java.awt.dnd.DropTargetAdapter"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="java.awt.datatransfer.DataFlavor"/>
+<fullyQualifiedTypeName name="java.io.StringReader"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.nio.ByteBuffer"/>
+<fullyQualifiedTypeName name="com.sun.corba.se.impl.ior.ByteBuffer"/>
+<fullyQualifiedTypeName name="java.nio.IntBuffer"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.lang.Character"/>
+<fullyQualifiedTypeName name="java.lang.StringBuffer"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel"/>
+<fullyQualifiedTypeName name="de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel"/>
+<fullyQualifiedTypeName name="dnd.DropDemo"/>
 </qualifiedTypeNameHistroy>

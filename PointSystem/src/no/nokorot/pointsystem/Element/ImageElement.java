@@ -84,10 +84,10 @@ public class ImageElement {
 		return location.getPath();
 	}
 
-	public static void addImage(BufferedImage image, boolean first, boolean select) {
+	public static ImageElement addImage(BufferedImage image, boolean first, boolean select) {
 		if (!imageElements.contains(image)) {
 			if (image == null)
-				return;
+				return null;
 			ImageElement element = new ImageElement();
 
 			element.location = null;
@@ -104,7 +104,9 @@ public class ImageElement {
 				list.setSelectedIndex(first ? 0 : list.getElementCount() - 1);
 				lListener.onSelction(element);
 			}
+			return element;
 		}
+		return null;
 		
 	}
 	
@@ -116,9 +118,9 @@ public class ImageElement {
 			if (image == null)
 				return;
 			ImageElement element = new ImageElement();
-
+			
 			element.location = file;
-			element.getImage();
+			element.image = image;
 			element.createIcon(image);
 
 			if (first)
@@ -159,6 +161,7 @@ public class ImageElement {
 		RCObject out = new RCObject(key);
 		int i = 0;
 		for (ImageElement element : imageElements) {
+			System.out.println(element.getPath());
 			if (element.getPath() == null || element.name == null)
 				continue;
 			out.addString("location " + i, element.getPath());

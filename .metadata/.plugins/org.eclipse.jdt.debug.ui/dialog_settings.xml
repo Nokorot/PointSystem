@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.jdt.internal.debug.ui.ExpressionInformationControlCreator$ExpressionInformationControl">
-		<item value="778" key="SashWeightTree"/>
-		<item value="215" key="SashWeightDetails"/>
-		<item value="600" key="WIDTH"/>
-		<item value="542" key="HEIGHT"/>
+		<item value="783" key="SashWeightTree"/>
+		<item value="216" key="SashWeightDetails"/>
+		<item value="598" key="WIDTH"/>
+		<item value="297" key="HEIGHT"/>
+	</section>
+	<section name="OpenFromClipboardAction_dialogBounds">
+		<item value="384" key="DIALOG_WIDTH"/>
+		<item value="1|Sans|9.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="406" key="DIALOG_HEIGHT"/>
+		<item value="769" key="DIALOG_X_ORIGIN"/>
+		<item value="258" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

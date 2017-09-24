@@ -25,7 +25,7 @@ import com.thecherno.raincloud.serialization.RCObject;
 
 public class PointSystem extends Platform {
 
-	public static String Version = "2.9.0";
+	public static String Version = "2.9.1";
 	public static String filedLoc, srcLoc;
 
 	public static RCDatabase database;
