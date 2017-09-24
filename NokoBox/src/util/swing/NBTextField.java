@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import util.Window;
 import util.swing.gride.BoxObject;
 
-public class TextField extends JTextField implements BoxObject {
+public class NBTextField extends JTextField implements BoxObject {
 	private static final long serialVersionUID = 1L;
 	
 	public boolean activated = false;
@@ -19,66 +19,59 @@ public class TextField extends JTextField implements BoxObject {
 
 	public Window window;
 
-	public TextField(Window window, String text, Rectangle rec, String code, boolean editable) {
+	public NBTextField(Window window, String text, Rectangle rec, String code, boolean editable) {
 
 		this.window = window;
 		this.code = code;
 
+		window.applySentings(this);
+		
 		if(rec != null)
 			setBounds(rec);
 		if(text != null)
 			setText(text);
 
-		TextFieldSetings s = window.textfeldSets;
-
-		setBackground(s.bColor);
-		setForeground(s.tColor);
-		setFont(s.font);
-		setBorder(s.border);
-		setEditable(editable);
-		setHorizontalAlignment(s.horizontal);
-
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() instanceof TextField){
+				if(e.getSource() instanceof NBTextField){
 					onAction();
-					window.TextFieldAction((TextField) e.getSource());
+					window.TextFieldAction((NBTextField) e.getSource());
 				}
 			}
 		});
 
-		window.panel.add(this);
+		window.panel2.add(this);
 	}
 
-	public TextField(Window window, String text, Rectangle rec, String code) {
+	public NBTextField(Window window, String text, Rectangle rec, String code) {
 		this(window, text, rec, code, true);
 	}
 	
-	public TextField(Window window, String text, Rectangle rec){
+	public NBTextField(Window window, String text, Rectangle rec){
 		this(window, text, rec, null);
 	}
 	
-	public TextField(Window window, String text){
+	public NBTextField(Window window, String text){
 		this(window, text, null, null);
 	}
 	
-	public TextField(Window window, String text, String code){
+	public NBTextField(Window window, String text, String code){
 		this(window, text, null, code);
 	}
 
-	public TextField(Window window, Rectangle rec, String code, boolean editable) {
+	public NBTextField(Window window, Rectangle rec, String code, boolean editable) {
 		this(window, null, rec, code, editable);
 	}
 
-	public TextField(Window window, Rectangle rec, String code) {
+	public NBTextField(Window window, Rectangle rec, String code) {
 		this(window, null, rec, code, true);
 	}
 
-	public TextField(Window window, Rectangle rec) {
+	public NBTextField(Window window, Rectangle rec) {
 		this(window, null, rec, null, true);
 	}
 	
-	public TextField(Window window){
+	public NBTextField(Window window){
 		this(window, null, null, true);
 	}
 	

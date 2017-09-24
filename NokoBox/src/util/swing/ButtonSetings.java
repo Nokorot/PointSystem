@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -20,7 +21,7 @@ public class ButtonSetings {
 	public static boolean s_enable = true;
 	public static JPanel s_panel = new JPanel();
 
-	public Color bColor = s_bColor;
+	public Color background = s_bColor;
 	public Color tColor = s_tColor;
 	public Icon icon = s_icon;
 	public Font font = s_font;
@@ -30,11 +31,11 @@ public class ButtonSetings {
 	public ActionListener listener = s_listener;
 	public static ActionListener s_listener;
 
-	public ButtonSetings(final Window window) {
+	public ButtonSetings() {
 	}
 
 	public void setBColor(Color bColor) {
-		this.bColor = bColor;
+		this.background = bColor;
 	}
 
 	public void setTColor(Color tColor) {
@@ -63,5 +64,18 @@ public class ButtonSetings {
 
 	public void setActionListener(ActionListener listener) {
 		this.listener = listener;
+	}
+
+	public void applySettings(NBButton b) {
+		b.setBackground(this.background);
+		b.setForeground(this.tColor);
+		b.setFont(this.font);
+		b.setBorder(this.border);
+
+		b.setOpaque(true);
+		
+		if(this.icon != null)
+			b.setIcon(this.icon);
+		
 	}
 }

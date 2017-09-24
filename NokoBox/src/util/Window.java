@@ -17,44 +17,42 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 import util.adds.UpdateAdd;
-import util.swing.NBButton;
 import util.swing.ButtonSetings;
 import util.swing.LabelSetings;
+import util.swing.NBButton;
+import util.swing.NBPanel;
+import util.swing.NBTheamHolder;
 import util.swing.PopDownTextField;
 import util.swing.TextArea;
 import util.swing.TextAreaSetings;
-import util.swing.TextField;
+import util.swing.NBTextField;
 import util.swing.TextFieldSetings;
 import util.swing.TextList;
 import util.swing.gride.Box;
 import util.swing.gride.BoxGrid;
 import util.swing.listeners.CloseListener;
 
-public class Window extends JFrame {
+public class Window extends JFrame implements NBTheamHolder {
+	
 	private static final long serialVersionUID = 1L;
 	
-	public static final int TOP = 2 << 0;
-	public static final int BOTTOM = 2 << 1;
-	public static final int LEFT = 2 << 2;
-	public static final int RIGHT = 2 << 3;
+	public static final int TOP 	= 2 << 0;
+	public static final int BOTTOM 	= 2 << 1;
+	public static final int LEFT 	= 2 << 2;
+	public static final int RIGHT 	= 2 << 3;
 	
 	private UpdateAdd upAdd;
 	private List<UpdateAdd> upAdds = new ArrayList<UpdateAdd>();
-
 	private List<CloseListener> closeListeners = new ArrayList<CloseListener>();
 
 	public final Platform platform;
-	public final JPanel panel;
-
-	public ButtonSetings buttonSets;
-	public TextFieldSetings textfeldSets;
-	public LabelSetings labelSets;
-	public TextAreaSetings textareaSets;
+	
+	public NBPanel panel2;
 	
 	protected boolean running;
 	public boolean[] keys = new boolean[68300];
@@ -69,18 +67,14 @@ public class Window extends JFrame {
 			System.err.println("Sorry, but your platform does not exist!");
 			System.exit(1);
 		}
-		panel = (JPanel) getContentPane();
-
-		DefaultWindowsSetings.setSetings(this);
 		
-		setSetings();
-		addListaners();
-		addUpdaters();
+		First();
+		init();
+		Init();
 	}
 	
 	/**
 	 * 
-	 * @param platform
 	 * @param title
 	 * @param width
 	 * @param height
@@ -91,29 +85,25 @@ public class Window extends JFrame {
 			System.err.println("Sorry, but your platform does not exist!");
 			System.exit(1);
 		}
+		
 		First();
-
+		
 		setTitle(title);
 		setSize(width, height);
-		DefaultWindowsSetings.setSetings(this);
-
-		panel = (JPanel) getContentPane();
-		setSetings();
-		addListaners();
-		addUpdaters();
-		
-//		setLocation(10000, 10000);
-//		setVisible(true);
 		setLocationRelativeTo(null);
+		init();
+
 		Init();
-//		setVisible(visible);
 	}
 	
-	private void setSetings() {
-		this.buttonSets = new ButtonSetings(this);
-		this.textfeldSets = new TextFieldSetings(this);
-		this.labelSets = new LabelSetings(this);
-		this.textareaSets = new TextAreaSetings(this);
+	private void init(){
+		panel2 = new NBPanel();
+		this.setContentPane(panel2);
+
+		DefaultWindowsSetings.setSetings(this);
+		
+		addListaners();
+		addUpdaters();		
 	}
 	
 	private void addListaners() {
@@ -264,11 +254,11 @@ public class Window extends JFrame {
 		BoxGrid grid = this.getGrid(1, new double[]{1, 1, 3});
 
 		NBButton b;
-		TextField tf;
+		NBTextField tf;
 		TextArea ta;
 		
 		b = new NBButton(this, "Button");
-		tf = new TextField(this);
+		tf = new NBTextField(this);
 		tf.setHorizontalAlignment(0);
 		tf.setText("TextField");
 		ta = new TextArea(this, true);
@@ -315,7 +305,7 @@ public class Window extends JFrame {
 	protected void KeyReleased(int key) {}
 
 	public void ButtonAction(NBButton button) { System.out.println(button); }
-	public void TextFieldAction(TextField field) {}
+	public void TextFieldAction(NBTextField field) {}
 	public void PopDownTextFieldAction(PopDownTextField source) {}
 	public void TextListAction(TextList source) {}
 	public void SliderChange(JSlider slider) { }
@@ -343,7 +333,7 @@ public class Window extends JFrame {
 	}
 
 	public int getPlaneHeight() {
-		return panel.getHeight();
+		return panel2.getHeight();
 	}
 
 	public UpdateAdd getUpAdd() {
@@ -396,6 +386,11 @@ public class Window extends JFrame {
 			arr[i] = ((Image) list.get(i));
 		}
 		return arr;
+	}
+
+	@Override
+	public void applySentings(JComponent component) {
+		panel2.applySentings(component);
 	}
 
 }

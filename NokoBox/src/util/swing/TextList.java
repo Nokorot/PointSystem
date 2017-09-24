@@ -42,7 +42,7 @@ public class TextList extends JList<String> implements BoxObject {
 		
 		addListSelectionListener((ListSelectionEvent e) -> window.TextListAction(this) );
 		
-		TextFieldSetings s = window.textfeldSets;
+		TextFieldSetings s = window.panel2.textfeldSets;
 
 
 		if(rec == null)
@@ -52,7 +52,7 @@ public class TextList extends JList<String> implements BoxObject {
 		setForeground(s.tColor);
 		setFont(s.font);
 		sp.setBorder(s.border);
-		window.panel.add(sp);
+		window.panel2.add(sp);
 		
 	}
 

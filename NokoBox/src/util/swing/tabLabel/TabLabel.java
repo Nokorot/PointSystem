@@ -25,7 +25,7 @@ public class TabLabel extends Label {
 		this.tabLayout = layout;
 		tabLayout.setButtonHeight(buttonHeight);
 	}
-
+	
 	public void paint(Graphics g) {
 		tabLayout.paintLabel(this, g);
 	}
@@ -39,7 +39,8 @@ public class TabLabel extends Label {
 		tabs.add(tab);
 		tab.setButtonPos(xOffset);
 		tab.getButton().setVisible(true);
-		setActiveTab(tab);
+		if (tabs.size() == 1)
+			setActiveTab(tab);
 		xOffset += tab.getButtonWidth();
 	}
 
@@ -50,6 +51,11 @@ public class TabLabel extends Label {
 		}
 		System.err.println("the tab '" + text + "' does not exsist!");
 		return null;
+	}
+	
+	public void setButtonHeight(int i) {
+		this.buttonHeight = i;
+		this.tabLayout.setButtonHeight(i);
 	}
 
 	public int getButtonHeight() {
@@ -104,5 +110,15 @@ public class TabLabel extends Label {
 
 	public Tab getActiveTab() {
 		return active;
+	}
+	
+	public void setBounds(int x, int y, int width, int height) {
+		super.setBounds(x, y, width, height);
+		int xOffset = 0;
+		for (Tab tab : tabs) {
+			tab.setBounds(x, y + buttonHeight, width, height - buttonHeight);
+			tab.setButtonPos(xOffset);
+			xOffset += tab.getButtonWidth();
+		}
 	}
 }

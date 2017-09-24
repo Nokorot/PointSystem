@@ -16,7 +16,7 @@ public class TextFieldSetings {
 	public static Icon s_icon = new JButton().getIcon();
 	public static Font s_font = new JButton().getFont();
 	public static Border s_border = new JButton().getBorder();
-	public static int s_horizontal = TextField.CENTER;
+	public static int s_horizontal = NBTextField.CENTER;
 
 	public Color bColor = s_bColor;
 	public Color tColor = s_tColor;
@@ -25,7 +25,7 @@ public class TextFieldSetings {
 	public Border border = s_border;
 	public int horizontal = s_horizontal;
 
-	public TextFieldSetings(final Window window) {
+	public TextFieldSetings() {
 	}
 
 	public void setBColor(Color bColor) {
@@ -50,5 +50,14 @@ public class TextFieldSetings {
 
 	public void setFontSize(int i) {
 		this.font = new Font(this.font.getName(), this.font.getStyle(), i);
+	}
+
+	public void applySettings(NBTextField tf) {
+		tf.setBackground(this.bColor);
+		tf.setForeground(this.tColor);
+		tf.setFont(this.font);
+		tf.setBorder(this.border);
+//		tf.setEditable(editable);
+		tf.setHorizontalAlignment(this.horizontal);
 	}
 }

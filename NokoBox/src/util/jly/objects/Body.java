@@ -5,7 +5,7 @@ import util.jly.contField;
 import util.jly.contObject;
 import util.swing.NBButton;
 import util.swing.Label;
-import util.swing.TextField;
+import util.swing.NBTextField;
 import util.swing.gride.Box;
 import util.swing.gride.XStrip;
 import util.swing.gride.YStrip;
@@ -113,7 +113,7 @@ public class Body {
 	}
 
 	private static void buildTextField(contObject object, Box box) {
-		TextField b = new TextField(lWindow);
+		NBTextField b = new NBTextField(lWindow);
 		b.setText(object.data);
 		
 		for (contField p : object.properties) 

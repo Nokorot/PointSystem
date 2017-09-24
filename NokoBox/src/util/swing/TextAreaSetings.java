@@ -20,7 +20,7 @@ public class TextAreaSetings {
 	protected Font font 				= s_font;
 	protected Border border 			= s_border;
 	
-	public TextAreaSetings(Window window) {
+	public TextAreaSetings() {
 	}
 	
 	public void setBColor(Color bColor) {
@@ -41,5 +41,12 @@ public class TextAreaSetings {
 
 	public void setFontSize(int i) {
 		this.font = new Font(this.font.getName(), this.font.getStyle(), i);
+	}
+
+	public void applySettings(TextArea ta) {
+		ta.setBackground(this.bColor);
+		ta.setForeground(this.tColor);
+		ta.setFont(this.font);
+		ta.setBorder(this.border);
 	}
 }

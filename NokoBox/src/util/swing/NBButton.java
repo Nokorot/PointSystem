@@ -2,6 +2,7 @@ package util.swing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import util.FontManager;
 import util.Window;
 import util.handelers.ImageHandeler;
 import util.handelers.ImageHandeler.ScaleType;
@@ -38,18 +40,8 @@ public class NBButton extends JButton implements BoxObject {
 		if(text != null)
 			setText(text);
 		
-		ButtonSetings s = window.buttonSets;
+		window.applySentings(this);
 		
-		setBackground(s.bColor);
-		setForeground(s.tColor);
-		setFont(s.font);
-		setBorder(s.border);
-
-		setOpaque(true);
-		
-		if(s.icon != null)
-			setIcon(s.icon);
-
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ((e.getSource() instanceof NBButton)) {
@@ -62,7 +54,7 @@ public class NBButton extends JButton implements BoxObject {
 			}
 		});
 
-		window.panel.add(this);
+		window.panel2.add(this);
 	}
 
 	public NBButton(Window window, String text, Rectangle rec) {
@@ -131,13 +123,35 @@ public class NBButton extends JButton implements BoxObject {
 		}
 	}
 	
-	public void setBColor(Color c) {
-		if (c == null)
-			c = window.buttonSets.bColor;
-		setBackground(c);
+	int width = FontManager.getStringWidth(this.getFont(), this.getText());
+	
+	public void setText(String text) {
+		super.setText(text);
+		width = FontManager.getStringWidth(this.getFont(), this.getText());
+	}
+	
+	public void setFont(Font font) {
+		super.setFont(font);
+		width = FontManager.getStringWidth(this.getFont(), this.getText());
 	}
 
-	public void setFonrSize(int size) {
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.setColor(this.getBackground());
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		g.setColor(this.getForeground());
+		g.drawString(this.getText(), (this.getWidth() - width) / 2,
+				(this.getHeight() + this.getFont().getSize())/2 );
+	}
+	
+	public void setBackground(Color bg) {
+		if (bg == null)
+			bg = window.panel2.buttonSets.background;
+		super.setBackground(bg);
+	}
+
+	public void setFontSize(int size) {
 		Font f = getFont();
 		setFont(new Font(f.getName(), f.getStyle(), size));
 	}

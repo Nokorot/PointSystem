@@ -21,7 +21,7 @@ import util.swing.Label;
 import util.swing.NBButton;
 import util.swing.SwitchButton;
 import util.swing.TextArea;
-import util.swing.TextField;
+import util.swing.NBTextField;
 import util.swing.gride.Box;
 import util.swing.gride.BoxObject;
 import util.swing.gride.Strip;
@@ -44,8 +44,8 @@ public class OnlineTeamPanel {
 	private Window window;
 	private NamedTeamMenu[] Teams;
 
-	private TextField teamAmount;
-	private TextField codeField;
+	private NBTextField teamAmount;
+	private NBTextField codeField;
 	
 	private boolean isOnline = false, inprosess = false;
 	
@@ -215,15 +215,15 @@ public class OnlineTeamPanel {
 		
 		y = new YStrip();
 		y.append(new Label(window, "Team Amount"));
-		y.append(teamAmount = new TextField(window, "2", "teams"), 1.8);
+		y.append(teamAmount = new NBTextField(window, "2", "teams"), 1.8);
 		x.append(y);
 		
 		y = new YStrip();
 		y.append(new Label(window, "Code (4-10 sym.)"));
-		y.append(codeField = new TextField(window, "", "online-code"), 1.8);
+		y.append(codeField = new NBTextField(window, "", "online-code"), 1.8);
 		x.append(y);
 
-		SwitchButton GoOnline = new SwitchButton(window, SwitchButton.COLOR, window.buttonSets.bColor, Color.CYAN);
+		SwitchButton GoOnline = new SwitchButton(window, SwitchButton.COLOR, window.panel2.buttonSets.background, Color.CYAN);
 		GoOnline.setText("Go Online");
 //				window, "", "Go Online");
 //		online.setIcon(MainMenu.icons[1], ScaleType.TILLPASS);

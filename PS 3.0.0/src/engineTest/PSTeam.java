@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import engine.Display;
@@ -212,6 +213,12 @@ public class PSTeam extends LiveContent implements BoxObject {
 		frame.add(add);
 		
 		frame.repaint();
+		
+	}
+
+	@Override
+	public void setPane(JPanel pane) {
+		// TODO Auto-generated method stub
 		
 	}
 }

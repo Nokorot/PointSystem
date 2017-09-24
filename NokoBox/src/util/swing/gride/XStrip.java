@@ -1,13 +1,10 @@
 package util.swing.gride;
 
-import javax.swing.JPanel;
-
 public class XStrip extends Strip {
 
 	public XStrip() {
 	}
 
-	@Override
 	protected void fixbounds(double x, double y, double width, double height){
 		if (ATot == 0) return;
 		
@@ -19,7 +16,6 @@ public class XStrip extends Strip {
 		}
 	}
 	
-	@Override
 	protected void rebounds(double dX, double dY, double dWidth, double dHeight) {
 		if (ETot != 0)
 			dWidth /= ETot;

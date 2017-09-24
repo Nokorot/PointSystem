@@ -7,7 +7,7 @@ import util.Window;
 import util.handelers.ImageHandeler.ScaleType;
 import util.swing.NBButton;
 import util.swing.Label;
-import util.swing.TextField;
+import util.swing.NBTextField;
 import util.swing.gride.Box;
 import util.swing.gride.BoxObject;
 import util.swing.gride.Strip;
@@ -26,7 +26,7 @@ public class LocalTeamPanel {
 	private Window window;
 	private NamedTeamMenu[] Teams;
 
-	private TextField teamAmount;
+	private NBTextField teamAmount;
 
 	public LocalTeamPanel(Window window, NamedTeamMenu[] teamMenues) {
 		this.window = window;
@@ -63,11 +63,11 @@ public class LocalTeamPanel {
 		x.append(y);
 		y = new YStrip();
 		y.append(new Label(window, "Given Points"));
-		y.append(MainMenu.GivenPoints = new TextField(window, "1", "points"), 1.8);
+		y.append(MainMenu.GivenPoints = new NBTextField(window, "1", "points"), 1.8);
 		x.append(y);
 		y = new YStrip();
 		y.append(new Label(window, "Team Amount"));
-		y.append(teamAmount = new TextField(window, "2", "teams"), 1.8);
+		y.append(teamAmount = new NBTextField(window, "2", "teams"), 1.8);
 		x.append(y);
 
 		toolBox = x;

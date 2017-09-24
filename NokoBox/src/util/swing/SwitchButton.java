@@ -116,7 +116,7 @@ public class SwitchButton extends NBButton {
 	
 	private void clearButton(){
 		setText("");
-		setBackground(window.buttonSets.bColor);
+		setBackground(window.panel2.buttonSets.background);
 		setIcon(null);
 	}
 	

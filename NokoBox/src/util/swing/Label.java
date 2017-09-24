@@ -27,34 +27,21 @@ public class Label extends JLabel implements BoxObject {
 	
 //	protected double xScale, yScale;
 	
-	private CompPaint s_paint;
+	CompPaint s_paint;
 
 	public Label(Window window, String text, Rectangle rec, String code) {
-		LabelSetings s = window.labelSets;
-
 		if (rec != null)
 			setBounds(rec);
 		if (code == null)
 			code = "-1";
 
+		window.applySentings(this);
+		
 		this.window = window;
 		this.code = code;
 		setText(text);
-		setBackground(s.bColor);
-		setForeground(s.tColor);
-		setFont(s.font);
-		setBorder(s.border);
-
-		setHorizontalAlignment(s.horizontalAlignment);
-		setVerticalAlignment(s.verticalAlignment);
-
-		s_paint = s.paint;
 		
-		if (s.icon != null) {
-			setIcon(s.icon, s.iconScale);
-		}
-		window.panel.add(this);
-		
+		window.panel2.add(this);
 	}
 	
 	public Label(Window window, String text, Rectangle rec){
