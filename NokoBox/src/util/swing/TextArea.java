@@ -30,12 +30,7 @@ public class TextArea extends JTextArea implements BoxObject {
 		if(text != null)
 			setText(text);
 		
-		TextAreaSetings s = window.textareaSets;
 		
-		setBackground(s.bColor);
-		setForeground(s.tColor);
-		setFont(s.font);
-		setBorder(s.border);
 		setEditable(editable);
 
 		scrol.setViewportView(this);
@@ -54,7 +49,7 @@ public class TextArea extends JTextArea implements BoxObject {
 			}
 		});
 
-		window.panel.add(this.scrol);
+		window.panel2.add(this.scrol);
 	}
 
 	public TextArea(Window window, Rectangle rec, String text, boolean editeable) {

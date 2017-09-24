@@ -29,7 +29,7 @@ import util.swing.NBSlider;
 import util.swing.NBTabbedPane;
 import util.swing.PopDownTextField;
 import util.swing.SwitchButton;
-import util.swing.TextField;
+import util.swing.NBTextField;
 import util.swing.gride.BoxGrid;
 import util.swing.gride.BoxObject;
 import util.swing.gride.XStrip;
@@ -71,7 +71,7 @@ public class FontEditor2 {
 				setMinimumSize(new Dimension(700, 450));
 
 				setResizable(true);
-				labelSets.setFontSize(12);
+				panel2.labelSets.setFontSize(12);
 
 				XStrip root = new XStrip();
 				YStrip y = new YStrip();

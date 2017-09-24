@@ -2,13 +2,13 @@ package util.jly.objects;
 
 import util.Window;
 import util.jly.contObject;
-import util.swing.TextField;
+import util.swing.NBTextField;
 
 public class jlyTFeald {
 
-	public static TextField Build(Window window, contObject o) {
+	public static NBTextField Build(Window window, contObject o) {
 
-		TextField tf = new TextField(window);
+		NBTextField tf = new NBTextField(window);
 		if(o.getF("") != null)
 			tf.setText(o.getF("").data);
 		

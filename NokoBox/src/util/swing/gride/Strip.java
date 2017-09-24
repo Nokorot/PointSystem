@@ -149,4 +149,24 @@ public abstract class Strip implements PreferdBoxObject, Iterable<Box> {
 		};
 	} 
 	
+	public Rectangle getBounds() {
+		return bounds.getBounds();
+	}
+	
+	public double getX() {
+		return bounds.getX();
+	}
+	
+	public double getY() {
+		return bounds.getY();
+	}
+	
+	public double getWidth() {
+		return bounds.getWidth();
+	}
+	
+	public double getHeight() {
+		return bounds.getHeight();
+	}
+	
 }

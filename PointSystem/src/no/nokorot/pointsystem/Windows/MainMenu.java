@@ -23,7 +23,7 @@ import util.math.Maths;
 import util.swing.Docker;
 import util.swing.Label;
 import util.swing.NBButton;
-import util.swing.TextField;
+import util.swing.NBTextField;
 import util.swing.gride.Box;
 import util.swing.gride.BoxObject;
 import util.swing.gride.XStrip;
@@ -40,7 +40,7 @@ public class MainMenu {
 	
 	private static String defaultName = "Team %i";
 	
-	public static TextField GivenPoints;
+	public static NBTextField GivenPoints;
 
 	public static Window window;
 	public static Docker docker;
@@ -166,8 +166,9 @@ public class MainMenu {
 				setResizable(false);
 				setDefaultCloseOperation(3);
 
-				textfeldSets.setFont(new Font("Arial", Font.BOLD, 32));
-				labelSets.setFontSize(14);
+				
+				panel2.textfeldSets.setFont(new Font("Arial", Font.BOLD, 32));
+				panel2.labelSets.setFontSize(14);
 				
 				YStrip root = new YStrip();
 				XStrip x;
@@ -201,7 +202,7 @@ public class MainMenu {
 				setVisible(true);
 				this.getFrameBox().setBoxObject(root);
 				
-				panel.setBackground(Color.DARK_GRAY);
+				panel2.setBackground(Color.DARK_GRAY);
 			}
 			
 			public void ButtonAction(NBButton b) {
@@ -257,7 +258,7 @@ public class MainMenu {
 			}
 
 			@Override
-			public void TextFieldAction(TextField tf) {
+			public void TextFieldAction(NBTextField tf) {
 				switch (tf.code) {
 				case "points":
 					break;
@@ -303,7 +304,7 @@ public class MainMenu {
 			object.setVisible(true);
 		}
 
-		private TextField dName;
+		private NBTextField dName;
 		
 		public SetDefaultName() {
 			super("Set Default Names", 260, 140);
@@ -317,7 +318,7 @@ public class MainMenu {
 			addons.append((BoxObject) null, 3);
 			root.append(addons);
 			
-			root.append(dName = new TextField(this, defaultName, "dName"));
+			root.append(dName = new NBTextField(this, defaultName, "dName"));
 			
 			XStrip x = new XStrip();
 			x.append(new NBButton(this, "cansel", "cansel"));

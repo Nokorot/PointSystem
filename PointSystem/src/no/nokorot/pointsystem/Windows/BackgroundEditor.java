@@ -85,7 +85,7 @@ public class BackgroundEditor {
 				setMaximumSize(new Dimension(MAX_WIDTH, MAX_HEIGHT));
 				setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 
-				textfeldSets.setFontSize(10);
+				panel2.textfeldSets.setFontSize(10);
 				
 				setVisible(true);
 				BoxGrid bg = getGrid(new double[] { 2, 1.3},
@@ -103,8 +103,8 @@ public class BackgroundEditor {
 				topGrid.setExp(new double[]{0, 0, 0, 1}, new double[]{0, 1});
 				// topGrid.setAllInsets(0, 3, 0, 3);
 
-				labelSets.setTColor(Color.WHITE);
-				labelSets.setFontSize(15);
+				panel2.labelSets.setTColor(Color.WHITE);
+				panel2.labelSets.setFontSize(15);
 
 				topGrid.setComponent(new Label(this, "Bacground"), 0, 0);
 				bacground = new NBButton(this);
@@ -171,7 +171,7 @@ public class BackgroundEditor {
 				listBox = bg.getBox(1, 1);
 				listBox.setComponent(imageList);
 
-				panel.setBackground(Color.DARK_GRAY);
+				panel2.setBackground(Color.DARK_GRAY);
 			}
 
 			public void ButtonAction(NBButton b) {

@@ -4,12 +4,10 @@ import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
 import no.nokorot.pointsystem.Windows.MainMenu;
 import util.Window;
 import util.swing.NBButton;
-import util.swing.TextField;
+import util.swing.NBTextField;
 import util.swing.gride.BoxObject;
 import util.swing.gride.XStrip;
 import util.swing.gride.YStrip;
@@ -24,7 +22,7 @@ public class NamedTeamMenu implements BoxObject {
 	private YStrip root0, root1;
 	
 	private Window menu;
-	private TextField nameLabel, pointsLabel;
+	private NBTextField nameLabel, pointsLabel;
 	private NBButton add, sub;
 	
 	public NamedTeamMenu(Window menu, Team team) {
@@ -66,7 +64,7 @@ public class NamedTeamMenu implements BoxObject {
 	@SuppressWarnings("serial")
 	private void Objects() {
 		
-		nameLabel = new TextField(menu, team.name) {
+		nameLabel = new NBTextField(menu, team.name) {
 			protected void onAction() {
 				team.name = nameLabel.getText();
 				MainMenu.updateLiveWindow();
@@ -89,7 +87,7 @@ public class NamedTeamMenu implements BoxObject {
 			}
 		};
 		
-		pointsLabel = new TextField(menu, team.stringedP()) {
+		pointsLabel = new NBTextField(menu, team.stringedP()) {
 			protected void onAction() {
 				team.setP(pointsLabel.getText());
 				pointsLabel.setText(team.stringedP());

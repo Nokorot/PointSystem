@@ -32,7 +32,7 @@ public class LabelSetings {
 	protected int verticalAlignment = s_verticalAlignment;
 	protected CompPaint paint = s_paint;
 
-	public LabelSetings(final Window window) {
+	public LabelSetings() {
 	}
 
 	public void setBColor(Color bColor) {
@@ -67,5 +67,21 @@ public class LabelSetings {
 	public static void setStandardIcon(BufferedImage icon, ScaleType scale){
 		s_icon = icon;
 		s_iconScale = scale;
+	}
+
+	public void applySettings(Label l) {
+		l.setBackground(this.bColor);
+		l.setForeground(this.tColor);
+		l.setFont(this.font);
+		l.setBorder(this.border);
+        
+		l.setHorizontalAlignment(this.horizontalAlignment);
+		l.setVerticalAlignment(this.verticalAlignment);
+
+		l.s_paint = this.paint;
+		
+		if (this.icon != null) {
+			l.setIcon(this.icon, this.iconScale);
+		}
 	}
 }

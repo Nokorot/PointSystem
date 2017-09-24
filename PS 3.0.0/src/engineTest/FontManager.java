@@ -2,6 +2,7 @@ package engineTest;
 
 import java.awt.Color;
 
+import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -13,9 +14,9 @@ import javax.swing.text.PlainDocument;
 
 import fontRendering.FontMaterial;
 import util.Window;
-import util.swing.Button;
 import util.swing.Label;
-import util.swing.TextField;
+import util.swing.NBButton;
+import util.swing.NBTextField;
 import util.swing.gride.BoxObject;
 import util.swing.gride.XStrip;
 import util.swing.gride.YStrip;
@@ -41,10 +42,10 @@ public class FontManager extends Window {
 	public void Init() {
 		// super.Init();
 
-		buttonSets.bColor = Color.DARK_GRAY;
+		panel2.buttonSets.background = Color.DARK_GRAY;
 
-		textfeldSets.bColor = Color.DARK_GRAY;
-		textfeldSets.tColor = Color.LIGHT_GRAY;
+		panel2.textfeldSets.bColor = Color.DARK_GRAY;
+		panel2.textfeldSets.tColor = Color.LIGHT_GRAY;
 
 		float w = 1;
 
@@ -116,11 +117,11 @@ public class FontManager extends Window {
 		this.getFrameBox().setBoxObject(root);
 	}
 
-	public void ButtonAction(Button button) {
+	public void ButtonAction(NBButton button) {
 		super.ButtonAction(button);
 	}
 
-	public void TextFieldAction(TextField field) {
+	public void TextFieldAction(NBTextField field) {
 		if (field.code == null)
 			return;
 
@@ -179,7 +180,7 @@ public class FontManager extends Window {
 		inctance.material = material;
 	}
 
-	static class NumField extends TextField {
+	static class NumField extends NBTextField {
 
 		private float value;
 
@@ -275,6 +276,12 @@ public class FontManager extends Window {
 			});
 			
 			window.add(this);
+		}
+
+		@Override
+		public void setPane(JPanel pane) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 	}

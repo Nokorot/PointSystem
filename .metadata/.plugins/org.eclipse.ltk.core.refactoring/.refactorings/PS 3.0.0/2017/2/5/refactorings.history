@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename local variable &apos;text&apos; in &apos;engineTest.FontManager.NumField.NumField(...)&apos; to &apos;value&apos;&#x0A;- Original project: &apos;PS 3.0.0&apos;&#x0A;- Original element: &apos;engineTest.FontManager.NumField.NumField(Window, double, String).text&apos;&#x0A;- Renamed element: &apos;text&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;text&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;engineTest{FontManager.java[FontManager[NumField~NumField~QWindow;~D~QString;@text!1326!1336!1333!1336!D!0!true" name="value" references="true" stamp="1486252768956" version="1.0"/>
-</session>

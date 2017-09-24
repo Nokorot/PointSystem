@@ -1,6 +1,5 @@
 package util.swing.tabLabel;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Rectangle;
@@ -10,20 +9,26 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 import util.adds.UpdateAdd;
 import util.handelers.ImageHandeler;
 import util.handelers.ImageHandeler.ScaleType;
 import util.swing.NBButton;
+import util.swing.gride.Box;
 import util.swing.gride.BoxGrid;
+import util.swing.gride.BoxObject;
 
-public class Tab {
+public class Tab implements BoxObject {
 
 	private String code;
 //	private BufferedImage icon;
 	
 	private TabLabel label;
 	
+	private Box frameBox; 
+	
+	int xOffset;
 	private NBButton button;
 	private BoxGrid boxGrid;
 
@@ -31,24 +36,22 @@ public class Tab {
 		this.code = title;
 		this.label = label;
 		
-		Tab tab = this;
-
 		button = new NBButton(label.window, title){
 			private static final long serialVersionUID = 1L;
 
 			protected void paintComponent(Graphics g){
-				label.getTabLayout().paintButton(this, g, label.isActive(tab));
-//				this.s_paint = null;
-				super.paintComponent(g);
+				//super.paintComponent(g);
+				label.getTabLayout().paintButton(this, g, label.isActive(Tab.this));
 			}
 		};
 		button.setBorder(null);
-		button.setForeground(Color.WHITE);
-		button.setSize(title.length() * 10, label.getButtonHeight());
+		
+		int width = util.FontManager.getStringWidth(button.getFont(), title);
+		button.setSize(width + 4, label.getButtonHeight());
 
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				label.setActiveTab(tab);
+				label.setActiveTab(Tab.this);
 			}
 		});
 	}
@@ -70,6 +73,7 @@ public class Tab {
 	}
 	
 	public void setButtonPos(int x) {
+		this.xOffset = x;
 		button.setLocation(x + label.getX(), label.getY());
 	}
 	
@@ -119,9 +123,31 @@ public class Tab {
 	public void setVisible(boolean b) {
 		if (boxGrid != null)
 			boxGrid.setVisible(b);
+		if (frameBox != null)
+			frameBox.setVisible(b);
 	}
 
 	public int getButtonWidth() {
 		return button.getWidth();
+	}
+
+	public Box getFrameBox() {
+		if (frameBox == null)
+			frameBox = new Box();
+		return frameBox;
+	}
+	
+	public void setBounds(int x, int y, int width, int height) {
+		if (frameBox != null) 
+			frameBox.setBounds(x, y, width, height);
+	}
+
+	public void setBounds(Rectangle rectangle) {
+		if (frameBox != null)
+			frameBox.setBounds(rectangle);
+	}
+
+	public void setPane(JPanel pane) {
+		frameBox.setPane(pane);
 	}
 }

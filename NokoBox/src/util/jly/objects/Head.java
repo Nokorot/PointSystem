@@ -33,7 +33,7 @@ public class Head {
 			case "resizeable":
 				window.setResizable(field.asBoolean()); break;
 			case "background":
-				window.panel.setBackground(asColor(field)); break;
+				window.panel2.setBackground(asColor(field)); break;
 			}
 		}
 		

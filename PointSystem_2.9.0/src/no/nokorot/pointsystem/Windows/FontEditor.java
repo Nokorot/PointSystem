@@ -54,7 +54,7 @@ public class FontEditor {
 				
 				setResizable(true);
 //				panel.setBackground(new Color(0x44));
-				labelSets.setFontSize(18);
+				panel2.labelSets.setFontSize(18);
 				
 				
 				XStrip root = new XStrip();

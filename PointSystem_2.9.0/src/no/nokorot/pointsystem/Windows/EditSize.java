@@ -9,7 +9,7 @@ import util.math.Maths;
 import util.swing.Docker;
 import util.swing.Label;
 import util.swing.PopDownTextField;
-import util.swing.TextField;
+import util.swing.NBTextField;
 import util.swing.gride.BoxGrid;
 
 @SuppressWarnings({ "serial" })
@@ -21,7 +21,7 @@ public class EditSize {
 	private static Window window;
 
 	private static PopDownTextField screen;
-	private static TextField x, y, width, height;
+	private static NBTextField x, y, width, height;
 
 	private static void create() {
 		GraphicsDevice[] devices = PSData.environment.getScreenDevices();
@@ -29,7 +29,7 @@ public class EditSize {
 		window = new Window("Size Editor", 200, 200) {
 
 			public void Init() {
-				labelSets.setFontSize(20f);
+				panel2.labelSets.setFontSize(20f);
 
 				setVisible(true);
 				BoxGrid grid = getGrid(1, new double[] { 1, .75, 1, .75, 1 });
@@ -42,9 +42,9 @@ public class EditSize {
 				grid.getBox(1).setComponent(posL);
 
 				BoxGrid g0 = grid.getBox(2).getInsideGrid(new double[] { 3, 1, 3 }, 1);
-				x = new TextField(this);
+				x = new NBTextField(this);
 				g0.getBox(0).setComponent(x);
-				y = new TextField(this);
+				y = new NBTextField(this);
 				g0.getBox(2).setComponent(y);
 				g0.getBox(1).setComponent(new Label(this, ","));
 
@@ -53,8 +53,8 @@ public class EditSize {
 				grid.getBox(3).setComponent(sizeL);
 
 				BoxGrid g1 = grid.getBox(4).getInsideGrid(new double[] { 3, 1, 3 }, 1);
-				width = new TextField(this);
-				height = new TextField(this);
+				width = new NBTextField(this);
+				height = new NBTextField(this);
 				g1.getBox(0).setComponent(width);
 				g1.getBox(2).setComponent(height);
 				g1.getBox(1).setComponent(new Label(this, "x"));
@@ -77,7 +77,7 @@ public class EditSize {
 				}
 			}
 
-			public void TextFieldAction(TextField field) {
+			public void TextFieldAction(NBTextField field) {
 
 				int ax = Integer.parseInt(x.getText());
 				int ay = Integer.parseInt(y.getText());

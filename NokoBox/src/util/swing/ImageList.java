@@ -54,7 +54,7 @@ public class ImageList extends JList<ImageIcon> implements BoxObject {
 			setBounds(rec);
 
 		sp.setViewportView(this);
-		window.panel.add(sp);
+		window.panel2.add(sp);
 	}
 
 	public ImageList(Window window, String code) {

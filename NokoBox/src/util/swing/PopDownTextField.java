@@ -33,7 +33,7 @@ public class PopDownTextField extends JComboBox<String> implements BoxObject {
 		model = new NokoComboBoxModel<String>();
 		super.setModel(model);
 
-		TextFieldSetings s = window.textfeldSets;
+		TextFieldSetings s = window.panel2.textfeldSets;
 		setBackground(s.bColor);
 		setForeground(s.tColor);
 		setFont(s.font);
@@ -48,7 +48,7 @@ public class PopDownTextField extends JComboBox<String> implements BoxObject {
 			}
 		});
 
-		window.panel.add(this);
+		window.panel2.add(this);
 	}
 
 	public PopDownTextField(Window window, Rectangle rec) {
