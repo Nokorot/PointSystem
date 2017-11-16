@@ -5,7 +5,7 @@ public class XStrip extends Strip {
 	public XStrip() {
 	}
 
-	protected void fixbounds(double x, double y, double width, double height){
+	public void setBounds(double x, double y, double width, double height){
 		if (ATot == 0) return;
 		
 		width /= ATot;
@@ -16,7 +16,7 @@ public class XStrip extends Strip {
 		}
 	}
 	
-	protected void rebounds(double dX, double dY, double dWidth, double dHeight) {
+	public void increaseBounds(double dX, double dY, double dWidth, double dHeight) {
 		if (ETot != 0)
 			dWidth /= ETot;
 		double dx = dX;

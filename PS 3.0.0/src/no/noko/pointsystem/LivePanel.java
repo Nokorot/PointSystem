@@ -30,9 +30,10 @@ public class LivePanel implements BoxObject {
 		
 		XStrip x = new XStrip();
 		
-		x.append(new NBButton(window, "Hide"));
-		x.append(new NBButton(window, "Logo"));
-		x.append(new NBButton(window, "Black"));
+		x.append(new NBButton(window, "<html>Hide</html>"));
+		x.append(new NBButton(window, "<html>Logo</html>"));
+		x.append(new NBButton(window, "<html>Black</html>"));
+		x.append(new NBButton(window, "<html>Clear</html>"));
 		
 		root.append(x);
 		
@@ -79,6 +80,10 @@ public class LivePanel implements BoxObject {
 	public void setPane(JPanel pane) {
 		label.setPane(pane);
 		root.setPane(pane);
+	}
+	
+	public void repaint() {
+		root.repaint();
 	}
 	
 }

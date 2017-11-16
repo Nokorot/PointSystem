@@ -30,6 +30,10 @@ public class NBSlider extends JSlider implements BoxObject {
 		return (float) super.getValue() / mult;
 	}
 	
+	public void setFloatValue(float f) {
+		super.setValue((int) (f * mult));
+	}
+	
 	protected void onAction() {
 	}
 	

@@ -7,8 +7,9 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import util.swing.gride.BoxObject.PreferdBoxObject;
+import util.swing.gride.BoxObject.DBoxObject;
 
-public abstract class Strip implements PreferdBoxObject, Iterable<Box> {
+public abstract class Strip implements PreferdBoxObject, DBoxObject, Iterable<Box> {
 
 	protected boolean visible = true;
 	protected Rectangle bounds;
@@ -92,17 +93,17 @@ public abstract class Strip implements PreferdBoxObject, Iterable<Box> {
 		return this.append(comp, 1, 1);
 	}
 	
-	protected abstract void fixbounds(double x, double y, double width, double height);
+	public abstract void setBounds(double x, double y, double width, double height);
 		
-	protected abstract void rebounds(double dX, double dY, double dWidth, double dHeight);
+	public abstract void increaseBounds(double dX, double dY, double dWidth, double dHeight);
 
 	public void setBounds(Rectangle b, boolean fix) {
 		if (b == null) return; // TODO: Maby somthing I will change
 		if (fix || bounds == null){
-			fixbounds(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+			setBounds(b.getX(), b.getY(), b.getWidth(), b.getHeight());
 			bounds = b;
 		}else if (!bounds.equals(b)){
-			rebounds(b.x - bounds.x, b.y - bounds.y, b.getWidth() - bounds.width, b.getHeight() - bounds.height);
+			increaseBounds(b.x - bounds.x, b.y - bounds.y, b.getWidth() - bounds.width, b.getHeight() - bounds.height);
 			bounds.setBounds(b);
 		}
 	}

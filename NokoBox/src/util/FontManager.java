@@ -11,7 +11,7 @@ public class FontManager {
 	
 	
 	public static Graphics getCanvesGraphichs(int minWidth, int minHeight) {
-		System.out.println(minWidth + " " + minHeight);
+//		System.out.println(minWidth + " " + minHeight);
 		if (canves == null || canves.getWidth() < minWidth || canves.getHeight() < minHeight)
 			canves = new BufferedImage(minWidth, minHeight, BufferedImage.TYPE_3BYTE_BGR);
 		return canves.getGraphics();

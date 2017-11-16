@@ -30,8 +30,9 @@ public class LiveWindow {
 	// public static final int X_GRID_SIZE = 5;
 	// public static final int Y_GRID_SIZE = 5;
 
-	public static final int LogoMode = 1;
-	public static final int BlackMode = 2;
+	public static final int ClearMode = 1;
+	public static final int LogoMode = 2;
+	public static final int BlackMode = 4;
 
 	private static JWindow window;
 	private static Label label;
@@ -78,23 +79,31 @@ public class LiveWindow {
 		window.setVisible(b);
 	}
 
-	public static void setMode(int mode) {
-		if (Mode == mode) {
-			Mode = 0;
-			setCleared(cleared);
-		} else {
-			Mode = mode;
-			for (Element element : elements)
-				element.setVisible(false);
-		}
+	public static void setMode(int mode, boolean enable) {
+		if (enable)
+			Mode = Mode | mode;
+		else 
+			Mode = (Mode | mode) - mode;
+		
+		System.out.println(Mode);
+		if (Mode >= ClearMode)
+			setCleared(true);
+		else
+			setCleared(false);
+//		if (Mode == mode) {
+//			Mode = 0;
+//			setCleared(cleared);
+//		} else {
+//			Mode = mode;
+//			for (Element element : elements)
+//				element.setVisible(false);
+//		}
 		render();
 	}
 
-	public static void setCleared(boolean clear) {
+	private static void setCleared(boolean clear) {
 		cleared = clear;
-
-		if (Mode != 0)
-			return;
+		
 		for (Element element : elements)
 			if (element.Active)
 				element.setVisible(!clear);
@@ -150,27 +159,21 @@ public class LiveWindow {
 	public static void render() {
 		Graphics g = image.getGraphics();
 
-		if (Mode == BlackMode)
+		if ((Mode & BlackMode) > 0){
 			g.setColor(Color.BLACK);
-		else
+			g.fillRect(0, 0, getWidth(), getHeight());
+		} else {
 			g.setColor(backgroundColor);
-		
-		g.fillRect(0, 0, getWidth(), getHeight());
-
-		if (Mode == LogoMode) {
-			renderScaledImage(g, Logo, LogoScaling);
-
-		} else if (Mode != BlackMode) {
-			renderScaledImage(g, BackgroundImage, BacgroundScaling);
-			if (!cleared) {
-				for (Element element : elements) {
-					element.render(g);
-				}
+			g.fillRect(0, 0, getWidth(), getHeight());
+			
+			if ((Mode & LogoMode) > 0)
+				renderScaledImage(g, Logo, LogoScaling);
+			else {
+				renderScaledImage(g, BackgroundImage, BacgroundScaling);
 			}
 		}
-
-		g.dispose();
-
+		
+//		g.dispose();
 		label.setIcon(new ImageIcon(image));
 	}
 	

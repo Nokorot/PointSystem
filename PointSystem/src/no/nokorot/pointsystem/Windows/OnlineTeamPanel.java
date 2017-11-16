@@ -22,9 +22,9 @@ import util.handelers.ImageHandeler;
 import util.handelers.ImageHandeler.ScaleType;
 import util.swing.Label;
 import util.swing.NBButton;
+import util.swing.NBTextField;
 import util.swing.SwitchButton;
 import util.swing.TextArea;
-import util.swing.NBTextField;
 import util.swing.gride.Box;
 import util.swing.gride.BoxObject;
 import util.swing.gride.Strip;
@@ -33,9 +33,9 @@ import util.swing.gride.YStrip;
 
 public class OnlineTeamPanel {
 	
-	private static final String url = "https://pointsystemo.herokuapp.com/";
-//	private static final String url = "http://127.0.0.1:5000/";
-	private static long minTime = 250;
+//	private static final String url = "https://pointsystemo.herokuapp.com/";
+	private static final String url = "http://127.0.0.1:5000/";
+	private static long minTime = 1000;
 	
 	private static int Height = MainMenu.Height;
 	private static int AdvanceHeight = 150;
@@ -50,7 +50,10 @@ public class OnlineTeamPanel {
 	private NBTextField teamAmount;
 	private NBTextField codeField;
 	
+	private SwitchButton advanced;
+	
 	private boolean isOnline = false, inprosess = false;
+	private static String psCode;
 	
 	public OnlineTeamPanel(Window window, NamedTeamMenu[] teamMenues) {
 		this.window = window;
@@ -93,6 +96,7 @@ public class OnlineTeamPanel {
 		teamAmount.setEditable(false);
 		codeField.setEditable(false);
 		
+		
 		running = true;
 		thread = new Thread(()-> onlineConnection(), "Online Connection");
 		thread.start();
@@ -117,26 +121,29 @@ public class OnlineTeamPanel {
 	}
 	
 	private void onlineConnection(){
-		String code = codeField.getText();
-		if (code.length() < 4){
+		psCode = codeField.getText();
+		if (psCode.length() < 4){
 			Random random = new Random();
-			code = String.valueOf(random.nextInt(99999) + 1000);
-			codeField.setText(code);
+			psCode = String.valueOf(random.nextInt(99999) + 1000);
+			codeField.setText(psCode);
 		}
 		
 		String currentPoints = "" + Teams[0].getPoints();
 		for (int i = 1; i < MainMenu.currentAmountOfTeams; i++){
-			currentPoints += "-" + Teams[i].getPoints();
+			currentPoints += "," + Teams[i].getPoints();
 		}
 		
 		
-		read(url, "make-pointsystem/"+code+"/"+currentPoints);
+		psRead("make", psCode, currentPoints);
+		
+		if (advanced.activated)
+			enableAdvancedMode(true);
 		
 		long last = System.currentTimeMillis();
 		try {
 		while (running){
-			String data = read(url, "get-pointsystem/"+code);
-			String[] pointsS = data.split(", ");
+			String data = psRead("get", psCode);
+			String[] pointsS = data.split(",");
 			int[] points = new int[pointsS.length];
 			for (int i = 0; i < pointsS.length; i++){
 				try {
@@ -157,6 +164,22 @@ public class OnlineTeamPanel {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static boolean AdvancedModeEnabled = false; 
+	private void enableAdvancedMode(boolean enable) {
+		if (enable == AdvancedModeEnabled)
+			return;
+		psRead("info", psCode, "advancedMode", enable);
+		if (enable){
+		}
+	}
+	
+	public String psRead(String requestType, Object... data){
+		String[] slist = new String[data.length];
+		for (int i = 0; i < data.length; i++) 
+			slist[i] = data[i].toString();
+		return read(url, "pointsystem/"+requestType+"/" + String.join("|", slist));
 	}
 	
 	public String read(String url, String extention){
@@ -211,7 +234,6 @@ public class OnlineTeamPanel {
 						
 						NBButton qr = new NBButton(this);
 						qr.addActionListener((ActionEvent e) -> {
-							System.out.println("Hey");
 						    URI uri;
 							try {
 								uri = new URL(url).toURI();
@@ -244,6 +266,14 @@ public class OnlineTeamPanel {
 			}
 		});
 		x.append(info, 3/8.);
+		
+		advanced = new SwitchButton(window, SwitchButton.COLOR, window.panel2.buttonSets.background, Color.CYAN);
+		advanced.setText("Advanced");
+		advanced.addActionListener((ActionEvent e) -> {
+			if (running)
+				enableAdvancedMode(advanced.activated);
+		});
+		x.append(advanced);
 		
 		y = new YStrip();
 		y.append(new Label(window, "Team Amount"));

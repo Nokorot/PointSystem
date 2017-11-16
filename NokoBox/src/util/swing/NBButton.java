@@ -137,17 +137,17 @@ public class NBButton extends JButton implements BoxObject {
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(this.getBackground());
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		
-		g.setColor(this.getForeground());
-		g.drawString(this.getText(), (this.getWidth() - width) / 2,
-				(this.getHeight() + this.getFont().getSize())/2 );
+//		g.setColor(this.getBackground());
+//		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+//		
+//		g.setColor(this.getForeground());
+//		g.drawString(this.getText(), (this.getWidth() - width) / 2,
+//				(this.getHeight() + this.getFont().getSize())/2 );
 	}
 	
 	public void setBackground(Color bg) {
-		if (bg == null)
-			bg = window.panel2.buttonSets.background;
+//		if (bg == null)
+//			bg = window.panel2.buttonSets.background;
 		super.setBackground(bg);
 	}
 

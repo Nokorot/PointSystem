@@ -158,8 +158,8 @@ public class DropDemo extends JPanel {
 							// "javax.swing.plaf.metal.MetalLookAndFeel"
 							// "com.sun.java.swing.plaf.motif.MotifLookAndFeel"
 							// "javax.swing.plaf.nimbus.NimbusLookAndFeel"
-//							new SyntheticaBlackMoonLookAndFeel()
-							new SyntheticaBlackEyeLookAndFeel()
+							new SyntheticaBlackMoonLookAndFeel()
+//							new SyntheticaBlackEyeLookAndFeel()
 							);
 				} catch (UnsupportedLookAndFeelException e) {
 					// handle exception

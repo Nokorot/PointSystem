@@ -37,12 +37,29 @@ public class Team {
 		return (points + "").length() > 1 ? points + "" : "0" + points;
 	}
 
-	public void setP(String text) {
+	public void setPoints(String text) {
 		try {
-			points = Integer.parseInt(text);
+			setPoints(Integer.parseInt(text));
 		} catch (Exception e) {
 			System.err.println("can't pass \"" + text + "\" too an Integer!!");
 		}
+	}
+
+	public void setName(String name) {
+		this.name = name;
+		label.setName(name);
+	}
+
+	public void setPoints(int i){
+		points = i;
+		if (label != null)
+			label.setPoints(stringedP());
+	}
+	
+	public void addPoints(int i) {
+		points += i;
+		if (label != null)
+			label.setPoints(stringedP());
 	}
 
 	public void load(RCObject parent, String key) {

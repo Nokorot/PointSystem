@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
+import no.nokorot.pointsystem.Windows.LiveWindow;
 import no.nokorot.pointsystem.Windows.MainMenu;
 import util.Window;
 import util.swing.NBButton;
@@ -30,6 +31,7 @@ public class NamedTeamMenu implements BoxObject {
 	public NamedTeamMenu(Window menu, Team team) {
 		System.out.println(team);
 		this.team = team;
+		team.menu = this;
 		this.menu = menu;
 
 		Objects();
@@ -48,9 +50,8 @@ public class NamedTeamMenu implements BoxObject {
 	}
 
 	public void setPoints(int i) {
-		team.points = i;
+		team.setPoints(i);
 		pointsLabel.setText(team.stringedP());
-		MainMenu.updateLiveWindow();
 	}
 
 	public int getPoints() {
@@ -58,9 +59,8 @@ public class NamedTeamMenu implements BoxObject {
 	}
 
 	public void setName(String name) {
-		team.name = name;
+		team.setName(nameLabel.getText());
 		nameLabel.setText(name);
-		MainMenu.updateLiveWindow();
 	}
 
 	@SuppressWarnings("serial")
@@ -68,36 +68,31 @@ public class NamedTeamMenu implements BoxObject {
 		
 		nameLabel = new NBTextField(menu, team.name) {
 			protected void onAction() {
-				team.name = nameLabel.getText();
-				MainMenu.updateLiveWindow();
+				team.setName(nameLabel.getText());
 			}
 		};
 		
 		sub = new NBButton(menu, "-") {
 			public void onAction() {
-				team.points -= Integer.parseInt(MainMenu.GivenPoints.getText());
+				team.addPoints(-Integer.parseInt(MainMenu.GivenPoints.getText()));
 				pointsLabel.setText(team.stringedP());
-				MainMenu.updateLiveWindow();
 			}
 		};
 		
 		add = new NBButton(menu, "+") {
 			public void onAction() {
-				team.points += Integer.parseInt(MainMenu.GivenPoints.getText());
+				team.addPoints(Integer.parseInt(MainMenu.GivenPoints.getText()));
 				pointsLabel.setText(team.stringedP());
-				MainMenu.updateLiveWindow();
 			}
 		};
 		
 		pointsLabel = new NBTextField(menu, team.stringedP()) {
 			protected void onAction() {
-				team.setP(pointsLabel.getText());
+				team.setPoints(pointsLabel.getText());
 				pointsLabel.setText(team.stringedP());
-				MainMenu.updateLiveWindow();
 			}
 		};
 		
-
 		root0 = new YStrip();
 		root0.append(nameLabel);//.setInsets(3);
 		XStrip x = new XStrip();

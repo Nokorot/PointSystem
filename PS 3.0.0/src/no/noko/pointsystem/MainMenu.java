@@ -35,13 +35,11 @@ public class MainMenu {
 			private static final long serialVersionUID = 1L;
 
 			public void Init() {
-				//this.panel2.buttonSets.tColor = Color.BLACK;
-					
-//				setMaximumSize(new Dimension(MAX_WIDTH, MAX_HEIGHT));
 				setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 				
 				panel2.buttonSets.setBColor(MainMenu.B);
 				panel2.buttonSets.setTColor(MainMenu.E);
+				panel2.labelSets.setTColor(MainMenu.E);
 				panel2.textfeldSets.setFontSize(10);
 				
 				DXStrip root = new DXStrip(this);
@@ -50,12 +48,12 @@ public class MainMenu {
 				y.append(new ToolBar(this), 1, 0).setInsets(2, 2, 0, 0);;
 				
 				DXStrip x = new DXStrip(this);
-				x.append(new ContentPanel(this), 1, 0).setInsets(0, 2, 2, 0);
-				x.append(new MainPanel(this), 2).setInsets(0, 0, 2, 0);
+				x.append(new ContentPanel(this), 1, 1).setInsets(0, 2, 2, 0);
+				x.append(new MainPanel(this), 1.5, 5).setInsets(0, 0, 2, 0);
 				y.append(x, 3);
 				
 				root.append(y, 3);
-				root.append(new LivePanel(this), 1, 0).setLeftInset(0);
+				root.append(new LivePanel(this), 2, 0).setLeftInset(0);
 				
 				this.getFrameBox().setBoxObject(root);
 					
@@ -71,7 +69,7 @@ public class MainMenu {
 	}
 	
 	public static TabLayout getTabLabelLayout() {
-		RoundRecTabLayout l = new RoundRecTabLayout(Color.CYAN, Color.BLACK, 2, 2);
+		RoundRecTabLayout l = new RoundRecTabLayout(MainMenu.B, Color.BLACK, 2, 2);
 		l.selectedButtonColor = MainMenu.B;
 		l.unselectedButtonColor = MainMenu.C;
 		l.background = MainMenu.B;

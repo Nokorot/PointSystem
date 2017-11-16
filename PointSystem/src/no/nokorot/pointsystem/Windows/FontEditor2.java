@@ -6,10 +6,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
@@ -17,8 +23,11 @@ import com.thecherno.raincloud.serialization.RCObject;
 
 import no.nokorot.pointsystem.PSData;
 import no.nokorot.pointsystem.PointSystem;
+import no.nokorot.pointsystem.Element.ImageElement;
 import no.nokorot.pointsystem.Element.Team;
+import no.nokorot.pointsystem.Windows.BackgroundEditor.PopUpDemo;
 import no.nokorot.pointsystem.utils.FontObject;
+import sun.font.FontLineMetrics;
 import util.Window;
 import util.adds.UpdateAdd;
 import util.handelers.ImageHandeler.ScaleType;
@@ -29,7 +38,6 @@ import util.swing.NBSlider;
 import util.swing.NBTabbedPane;
 import util.swing.PopDownTextField;
 import util.swing.SwitchButton;
-import util.swing.NBTextField;
 import util.swing.gride.BoxGrid;
 import util.swing.gride.BoxObject;
 import util.swing.gride.XStrip;
@@ -60,7 +68,7 @@ public class FontEditor2 {
 	private static void create() {
 		currentTheme = new FontObject("Def");
 
-		window = new Window("Font Editor", 700, 500) {
+		window = new Window("Font Editor", 900, 500) {
 			private static final long serialVersionUID = 1L;
 
 			protected void onOpened() {
@@ -68,7 +76,7 @@ public class FontEditor2 {
 			}
 
 			public void Init() {
-				setMinimumSize(new Dimension(700, 450));
+				setMinimumSize(new Dimension(800, 500));
 
 				setResizable(true);
 				panel2.labelSets.setFontSize(12);
@@ -90,11 +98,15 @@ public class FontEditor2 {
 				});
 
 
-				tabbedPane.addTab("Home", HomeTab(this));
-				tabbedPane.addTab("Teams", TeamsTab(this));
+//				root.append(HomeTab(this), 2);
+				root.append(TeamsTab(this));
 				
-				y.append(tabbedPane, 1, 0.3);
-				y.getBox(-1).setInsets(5, 5, 5, 5);
+				tabbedPane.addTab("Home", HomeTab(this));
+//				tabbedPane.addTab("Teams", TeamsTab(this));
+
+				root.append(tabbedPane, 2);
+//				y.append(tabbedPane, 1, 0.3);
+//				y.getBox(-1).setInsets(5, 5, 5, 5);
 
 //				Label line = new Label(this);
 //				line.setOpaque(true);
@@ -102,16 +114,23 @@ public class FontEditor2 {
 //				y.append(line, .1);
 
 //				y.append(previwe = new PreviewPanel(this, currentTheme), 2.5);
-				y.getBox(-1).setInsets(10, 20, 0, 20);
+//				y.getBox(-1).setInsets(10, 20, 0, 20);
 
-				root.append(y);
+//				root.append(y);
 
+//				fontPanel = new FontPanel(this) {
+//					public void onAction() {
+//						setTheme(this.getSelectedFont());
+//						fontPanel.setSaveState(true);
+//					}
+//				};
+				
 				root.append(fontPanel = new FontPanel(this) {
 					public void onAction() {
 						setTheme(this.getSelectedFont());
 						fontPanel.setSaveState(true);
 					}
-				}, .5);
+				});
 
 				this.getFrameBox().setBoxObject(root);
 			}
@@ -119,7 +138,7 @@ public class FontEditor2 {
 			public void ButtonAction(NBButton b) {
 				if (b.code != null) {
 					switch (b.code) {
-					case "SaveFont":
+					case "##SaveFont":
 						fontPanel.saveFont(currentTheme);
 						fontPanel.setSaveState(true);
 						break;
@@ -144,16 +163,14 @@ public class FontEditor2 {
 		// MainMenu.docker.registerDockee(window, Docker.EAST_DOCKED);
 
 		// setTheme(fontPanel.getSelectedFont());
+		
 		load();
-		if (Fontname.getElementCount() > 0)
-			Fontname.setSelectedIndex(-1);
 		fontPanel.select(-1);
 		fontPanel.setSaveState(true);
 	}
 
 	private static BoxObject HomeTab(Window window){
 		YStrip root = new YStrip();
-		
 		
 		XStrip home = new XStrip();
 
@@ -254,7 +271,7 @@ public class FontEditor2 {
 
 			protected void onAction() {
 				try {
-					float thiknes = this.getFloatValue();//Float.parseFloat(this.getText());
+					float thiknes = this.getFloatValue(); //Float.parseFloat(this.getText());
 					currentTheme.setBorderWidth(thiknes);
 					fontPanel.setSaveState(false);
 					previwe.update();
@@ -389,7 +406,15 @@ public class FontEditor2 {
 		Italic.setActiveIndex(fontObject.isItalic() ? 1 : 0);
 		int i = Fontname.getIndexOf(currentTheme.getFontname());
 		Fontname.setSelectedIndex(i > -1 ? i : 0);
+		
 
+//		 FontEditor2.mainColorSelector.setCurrentColor(new Color(in.getInteger("MainColor")));
+//		 FontEditor2.borderColorSelector.setCurrentColor(new Color(in.getInteger("BorderColor")));
+
+		mainColorSelector.setCurrentColor(fontObject.getColor());
+		borderColorSelector.setCurrentColor(fontObject.getBorderColor());
+		BThiknes.setFloatValue(fontObject.getBorderWidth());
+		
 //		for (int j = 0; j < 9; j++){
 //			if (namesA[j])
 //				Team.TEAMS[j].fontName = fontObject;
@@ -401,7 +426,8 @@ public class FontEditor2 {
 //		for (Team team : Team.TEAMS)
 //			team.fontName = fontObject;
 	}
-
+	
+	
 	public static void Open(boolean view) {
 		if (window == null)
 			create();
@@ -448,9 +474,16 @@ public class FontEditor2 {
 		 while (i > 0){
 			 FontObject fo = new FontObject("FontObject:" + i);
 			 fo.load(in, "FontObject:" + i--);
-			 System.out.println(fo);
 			 fontPanel.addFont(fo);
 		 }
+		 
+		 System.out.println("Ho Ho: " + in.getString("FontName"));
+		 Fontname.setSelectedItem(in.getString("FontName"));
+
+		 FontEditor2.mainColorSelector.setCurrentColor(new Color(in.getInteger("MainColor")));
+		 FontEditor2.borderColorSelector.setCurrentColor(new Color(in.getInteger("BorderColor")));
+		 
+		 FontEditor2.BThiknes.setValue(in.getInteger("BThiknes"));
 		 
 //		 for (int i = 0; i < in.getInteger("FontNameAmount"); i++) {
 //		 String s = in.getString("FontName_" + i);
@@ -459,7 +492,6 @@ public class FontEditor2 {
 //		 addFont(s);
 //		 }
 		
-//		 System.out.println(in.getSubObject("Font Color Panel"));
 //		 colorPanel.loadRCObject(in.getSubObject("Font Color Panel"));
 
 	}
@@ -475,7 +507,15 @@ public class FontEditor2 {
 		
 //		 RCObject colors = colorPanel.asRCObject();
 //		 out.addObject("Font Color Panel", colors);
+		 
+		 System.out.println("Hey Hey: " + Fontname.getSelectedItem());
+		 out.addString("FontName", Fontname.getSelectedItem());
 
+		 out.addInteger("MainColor", FontEditor2.mainColorSelector.getCurrentColor().getRGB());
+		 out.addInteger("BorderColor", FontEditor2.borderColorSelector.getCurrentColor().getRGB());
+		 
+		 out.addInteger("BThiknes", FontEditor2.BThiknes.getValue());
+		 
 		 out.addInteger("AmountOfFontObjects", fontPanel.fontObjects.size());
 		 
 		 int i = 0;
@@ -562,7 +602,7 @@ public class FontEditor2 {
 
 	private static class FontPanel extends YStrip {
 
-		private ImageList fontList;
+		private static ImageList fontList;
 		private List<FontObject> fontObjects = new ArrayList<>();
 
 		private NBButton Theams;
@@ -575,31 +615,32 @@ public class FontEditor2 {
 			BufferedImage[] icons = PointSystem.icons;
 
 			x = new XStrip();
+			x.append((BoxObject) null, 4.5);
 			save = new NBButton(window, "", "SaveFont");
 			save.setBackground(null);
 			setSaveState(true);
-			x.append(save).setInsets(0);
-			reset = new NBButton(window, "", "ResetFont");
-			reset.setIcon(icons[5], ScaleType.TILLPASS);
-			reset.setBackground(null);
-			x.append(reset).setInsets(0);
+//			x.append(save).setInsets(0);
+//			reset = new NBButton(window, "", "ResetFont");
+//			reset.setIcon(icons[5], ScaleType.TILLPASS);
+//			reset.setBackground(null);
+//			x.append(reset).setInsets(0);
 			New = new NBButton(window, "", "NewFont") {
-				// protected void paintComponent(Graphics g) {
-				// Rectangle r = g.getClipBounds();
-				// g.drawImage(((ImageIcon) New.getIcon()).getImage(), r.x, r.y,
-				// null);
-				//// super.paintComponent(g);
-				// }
+				 protected void paintComponent(Graphics g) {
+				 Rectangle r = g.getClipBounds();
+				 g.drawImage(((ImageIcon) New.getIcon()).getImage(), r.x, r.y,
+				 null);
+				// super.paintComponent(g);
+				 }
 			};
 			New.setIcon(icons[10], ScaleType.TILLPASS);
 			New.setBackground(null);
 			x.append(New).setInsets(0);
-			Trash = new NBButton(window, "", "TrashFont");
-			Trash.setIcon(icons[11], ScaleType.TILLPASS);
-			Trash.setBackground(null);
-			x.append(Trash).setInsets(0);
-			x.append(Theams = new NBButton(window, "Theams", "theams"), 3);
-			this.append(x);
+//			Trash = new NBButton(window, "", "TrashFont");
+//			Trash.setIcon(icons[11], ScaleType.TILLPASS);
+//			Trash.setBackground(null);
+//			x.append(Trash).setInsets(0);
+//			x.append(Theams = new NBButton(window, "Theams", "theams"), 3);
+			this.append(x, 1, 0);
 
 			fontList = new ImageList(window, "colorList");
 			fontList.setBackground(Color.LIGHT_GRAY);
@@ -608,7 +649,8 @@ public class FontEditor2 {
 					onAction();
 				}
 			});
-			this.append(fontList, 6);
+			fontList.addMouseListener(new PopClickListener());
+			this.append(fontList, 10);
 
 			// TODO: import/export - fontPanel
 //			x = new XStrip();
@@ -628,7 +670,7 @@ public class FontEditor2 {
 		}
 
 		public void addFont(FontObject fontObject) {
-			fontObjects.add(fontObject);
+			fontObjects.add(new FontObject(fontObject));
 			fontList.addImage(fontObject.getIcon(), true);
 		}
 
@@ -642,6 +684,11 @@ public class FontEditor2 {
 				return fontObjects.get(i);
 			else 
 				return null;
+		}
+		
+		public void removeFont(int i){
+			fontList.removeImage(i);
+			fontObjects.remove(i);
 		}
 
 		public void onAction() {
@@ -661,9 +708,38 @@ public class FontEditor2 {
 		public boolean getSaveState() {
 			return saveState;
 		}
-
 	}
+	
+	static class PopUpDemo extends JPopupMenu {
+	    JMenuItem anItem;
+	    public PopUpDemo(int index){
+	        anItem = new JMenuItem("Remove?");
+	        anItem.addActionListener((ActionEvent e) -> {
+	        	FontEditor2.fontPanel.removeFont(index);
+	        });
+	        add(anItem);
+	    }
+	}
+	
+	static class PopClickListener extends MouseAdapter {
+	    public void mousePressed(MouseEvent e){
+	        if (e.isPopupTrigger())
+	            doPop(e);
+	    }
 
+	    public void mouseReleased(MouseEvent e){
+	        if (e.isPopupTrigger())
+	            doPop(e);
+	    }
+
+	    private void doPop(MouseEvent e){
+	    	int i = FontPanel.fontList.locationToIndex(e.getPoint());
+	    	FontPanel.fontList.setSelectedIndex(i);
+	        PopUpDemo menu = new PopUpDemo(i);
+	        menu.show(e.getComponent(), e.getX(), e.getY());
+	    }
+	}
+	
 	private static class FontAdder {
 
 		public static FontAdder instance;

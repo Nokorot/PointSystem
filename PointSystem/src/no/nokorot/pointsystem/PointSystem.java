@@ -11,7 +11,11 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import com.thecherno.raincloud.serialization.RCDatabase;
+import com.thecherno.raincloud.serialization.RCObject;
+
 import no.nokorot.pointsystem.Windows.MainMenu;
+import no.nokorot.pointsystem.Windows.MainMenu2;
 import util.DefaultWindowsSetings;
 import util.Platform;
 import util.handelers.FileHandler;
@@ -19,9 +23,6 @@ import util.handelers.ImageHandeler;
 import util.swing.ButtonSetings;
 import util.swing.LabelSetings;
 import util.swing.TextFieldSetings;
-
-import com.thecherno.raincloud.serialization.RCDatabase;
-import com.thecherno.raincloud.serialization.RCObject;
 
 public class PointSystem extends Platform {
 
@@ -105,7 +106,7 @@ public class PointSystem extends Platform {
 	}
 
 	public static void restartApplication() {
-		MainMenu.window = null;
+		MainMenu2.window = null;
 		try {
 			final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator
 					+ "java";

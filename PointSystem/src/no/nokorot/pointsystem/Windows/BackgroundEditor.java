@@ -10,14 +10,19 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JColorChooser;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.event.ListSelectionEvent;
 
 import com.thecherno.raincloud.serialization.RCObject;
@@ -28,7 +33,6 @@ import no.nokorot.pointsystem.PointSystem;
 import no.nokorot.pointsystem.Element.ImageElement;
 import no.nokorot.pointsystem.utils.ColorPicker;
 import util.Window;
-import util.handelers.ImageHandeler;
 import util.handelers.ImageHandeler.ScaleType;
 import util.swing.ImageList;
 import util.swing.Label;
@@ -36,8 +40,9 @@ import util.swing.NBButton;
 import util.swing.PopDownTextField;
 import util.swing.SwitchButton;
 import util.swing.gride.Box;
-import util.swing.gride.BoxGrid;
+import util.swing.gride.DXStrip;
 import util.swing.gride.XStrip;
+import util.swing.gride.YStrip;
 
 public class BackgroundEditor {
 
@@ -81,46 +86,35 @@ public class BackgroundEditor {
 
 			public void Init() {
 				window = this;
-				
+
 				setMaximumSize(new Dimension(MAX_WIDTH, MAX_HEIGHT));
 				setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 
 				panel2.textfeldSets.setFontSize(10);
-				
-				setVisible(true);
-				BoxGrid bg = getGrid(new double[] { 2, 1.3},
-						new double[] { TOPP_BAR_HEIGHT, getPlaneHeight() - TOPP_BAR_HEIGHT });
-				// bg.setInsets(3);
-				bg.setExpX(new double[] { 1, 0 });
-				bg.setExpY(new double[] { 0, 1 });
-
-				bg.getBox(0, 1).setComponent(img = new Label(this));
-				img.setOpaque(true);
-				img.setDropTarget(new DropTarget(img, new ImageDropTargetListener()));
-
-				BoxGrid topGrid = bg.getBox(0, 0).getInsideGrid(new double[] { 1, 1, 1, 2 },
-						new double[] { 1, 2 });
-				topGrid.setExp(new double[]{0, 0, 0, 1}, new double[]{0, 1});
-				// topGrid.setAllInsets(0, 3, 0, 3);
-
 				panel2.labelSets.setTColor(Color.WHITE);
 				panel2.labelSets.setFontSize(15);
 
-				topGrid.setComponent(new Label(this, "Bacground"), 0, 0);
+				XStrip root = new XStrip();
+//				DXStrip root = new DXStrip(this);
+				
+				XStrip x = new XStrip();
+				YStrip y = new YStrip();
+				
+				y.append(new Label(this, "Bacground"));
 				bacground = new NBButton(this);
 				bacground.setIcon(PSData.backgroundImage, PSData.backgroundScaleType);
-				Box backBox = topGrid.getBox(0, 1);
-				backBox.setRightInset(0);
-				backBox.setComponent(bacground);
-
-				topGrid.setComponent(new Label(this, "Logo"), 1, 0);
+				y.append(bacground, 3);
+				x.append(y, 1, 0);
+				
+				y = new YStrip();
+				y.append(new Label(this, "Logo"));
 				logo = new NBButton(this);
 				logo.setIcon(PSData.logo, PSData.logoScaleType);
-				Box logoBox = topGrid.getBox(1, 1);
-				logoBox.setRightInset(0);
-				logoBox.setComponent(logo);
+				y.append(logo, 3);
+				x.append(y, 1, 0);
 
-				topGrid.setComponent(new Label(this, "Scale Type"), 2, 0);
+				y = new YStrip();
+				y.append(new Label(this, "Scale Type"));
 				scale = new PopDownTextField(this);
 				for (ScaleType type : ScaleType.values())
 					scale.addElements(type.name());
@@ -129,47 +123,33 @@ public class BackgroundEditor {
 				scale.addActionListener((ActionEvent e) -> {
 					setScale(ScaleType.valueOf(scale.getSelectedItem()));
 				});
-				topGrid.setComponent(scale, 2, 1);
-
-				BoxGrid rTopGrid = bg.getBox(1, 0).getInsideGrid(2, 1);
-
-				typeSwitch = new SwitchButton(this, SwitchButton.STRING, "Images", "Colors");
-				typeSwitch.setActiveIndex(1);
-				rTopGrid.setComponent(typeSwitch, 1);
-
-				brows = new NBButton(this, "Browse");
-				findColor = new NBButton(this, "Find");
-				pickColor = new NBButton(this, "Pick");
+				y.append(scale, 3);
+				x.append(y, 1, 0);
+				x.append(new YStrip(), 2);
 				
-				colorType = new XStrip();
-				colorType.append(findColor).setInsets(0, 0, 0, 3);
-				colorType.append(pickColor).setInsets(0, 3, 0, -1);
-
-				addBox = rTopGrid.getBox(0);
-				addBox.setComponent(brows);
-
+				y = new YStrip();
+				y.append(x, 1, 0);
+				
+				img = new Label(this);
+				img.setOpaque(true);
+				img.setDropTarget(new DropTarget(img, new ImageDropTargetListener()));
+				y.append(img, 4);
+				
+				root.append(y, 5);
+				
 				imageList = new ImageList(this, "imageList");
 				imageList.setBackground(Color.LIGHT_GRAY);
 				imageList.setDropTarget(new DropTarget(imageList, new ImageDropTargetListener()));
-				
+				imageList.addMouseListener(new PopClickListener());
+
 				imageList.addListSelectionListener((ListSelectionEvent e) -> {
 					if (e.getValueIsAdjusting()) {
-						colorList.clearSelection();
+//						colorList.clearSelection();
 					}
 				});
-
-				colorList = new ImageList(this, "colorList");
-				colorList.setBackground(Color.LIGHT_GRAY);
-				colorList.addListSelectionListener((ListSelectionEvent e) -> {
-					if (e.getValueIsAdjusting()) {
-						int i = colorList.getSelectedIndex();
-						setImage(colorList.getImage(i), null);
-						imageList.clearSelection();
-					}
-				});
-
-				listBox = bg.getBox(1, 1);
-				listBox.setComponent(imageList);
+				root.append(imageList, 2);
+				
+				this.getFrameBox().setBoxObject(root);
 
 				panel2.setBackground(Color.DARK_GRAY);
 			}
@@ -195,15 +175,16 @@ public class BackgroundEditor {
 				}
 
 				if (b == brows) {
-//					new java.awt.FileDialog((java.awt.Frame) null).setVisible(true);
-					
+					// new java.awt.FileDialog((java.awt.Frame)
+					// null).setVisible(true);
+
 					ImagePreviewFileChooser fileChooser = new ImagePreviewFileChooser(lastLocation);
 					fileChooser.setPreferredSize(new Dimension(800, 500));
 					fileChooser.setPreviewPanelWidth(500);
 					fileChooser.showOpenDialog(this);
 					lastLocation = fileChooser.getCurrentDirectory().getPath();
 					File file = fileChooser.getSelectedFile();
-					if (file != null && file.exists()){
+					if (file != null && file.exists()) {
 						ImageElement.addImage(file, true, true);
 						lastLocation = file.getParent();
 					}
@@ -217,13 +198,12 @@ public class BackgroundEditor {
 				}
 
 				if (b == pickColor) {
-					
+
 					Color c = new ColorPicker(window).pickColor();
 					if (c == null)
 						return;
 					addColor(c);
 				}
-
 			}
 
 			public void onCloseing() {
@@ -233,7 +213,7 @@ public class BackgroundEditor {
 		};
 
 		ImageElement.init(imageList, (ImageElement e) -> setImage(e.getImage(), e.getPath()));
-		ImageElement.addImage(PSData.logo, true, false);
+		
 
 		img.setImageIcon(PSData.backgroundImage);
 		setScale(PSData.backgroundScaleType);
@@ -243,8 +223,7 @@ public class BackgroundEditor {
 	public static void Open(boolean viwe) {
 		if (window == null)
 			create();
-		else
-			window.setVisible(viwe);
+		window.setVisible(viwe);
 	}
 
 	private static void selectBackground() {
@@ -271,8 +250,10 @@ public class BackgroundEditor {
 
 	private static void load() {
 		RCObject in = PointSystem.database.getObject("Background Chooser");
-		if (in == null)
+		if (in == null){
+			ImageElement.addImage(PSData.logo, true, false);
 			return;
+		}
 		new Thread(() -> {
 			int color;
 			int i = 0;
@@ -303,7 +284,6 @@ public class BackgroundEditor {
 			colors.add(color);
 			colorList.addImage(image, true);
 			colorList.repaint();
-			System.out.println(colorList.getElementCount());
 		}
 	}
 
@@ -344,9 +324,39 @@ public class BackgroundEditor {
 		MainMenu.updateLiveWindow();
 	}
 	
+	static class PopUpDemo extends JPopupMenu {
+	    JMenuItem anItem;
+	    public PopUpDemo(int index){
+	        anItem = new JMenuItem("Remove?");
+	        anItem.addActionListener((ActionEvent e) -> {
+	        	ImageElement.removeImage(index);
+	        });
+	        add(anItem);
+	    }
+	}
+	
+	static class PopClickListener extends MouseAdapter {
+	    public void mousePressed(MouseEvent e){
+	        if (e.isPopupTrigger())
+	            doPop(e);
+	    }
+
+	    public void mouseReleased(MouseEvent e){
+	        if (e.isPopupTrigger())
+	            doPop(e);
+	    }
+
+	    private void doPop(MouseEvent e){
+	    	int i = imageList.locationToIndex(e.getPoint());
+	    	imageList.setSelectedIndex(i);
+	        PopUpDemo menu = new PopUpDemo(i);
+	        menu.show(e.getComponent(), e.getX(), e.getY());
+	    }
+	}
+
 	private static class ImageDropTargetListener extends DropTargetAdapter {
 		public void drop(DropTargetDropEvent e) {
-			
+
 			try {
 				String data;
 				Transferable t = e.getTransferable();
@@ -360,7 +370,7 @@ public class BackgroundEditor {
 					while ((i = is.read()) != -1)
 						if (i != 0)
 							sb.append((char) i);
-					
+
 					data = new String(sb);
 
 					e.dropComplete(true);
@@ -370,26 +380,44 @@ public class BackgroundEditor {
 					data = (String) t.getTransferData(DataFlavor.stringFlavor);
 
 					e.dropComplete(true);
-				} else{
+				} else {
 					e.rejectDrop();
 					return;
 				}
 				
-				new Thread(() -> {
-				for (String s : data.split("\n")){
-					if (s.startsWith("file://")){
-						File f = new File(s.substring("file://".length(), s.length()-1));
-						ImageElement.addImage(f, true, false);
-					}
-				}
-				}).start();
-				System.out.println("Hey");
+//				String dat = data; int i;
+//				while ((i = dat.indexOf('%')) != -1){
+//					String s = dat.substring(i+1, i +3);
+//					if (s.equals("C3"))
+//						s += dat.substring(i+4, i + 6);
+//					System.out.println("" + (char) Integer.parseInt(s, 16));
+//					dat = dat.replaceFirst("%" + s, "" + (char) Integer.parseInt(s, 16));
+//					i++;
+//				}
 				
+
+				
+				System.out.println(data);
+
+				new Thread(() -> {
+//					String d = data.replace("%20", " ");
+					@SuppressWarnings("deprecation")
+					String d = URLDecoder.decode(data);
+					System.out.println(d);
+					
+					for (String s : d.split("\n")) {
+						if (s.startsWith("file://")) {
+							File f = new File(s.substring("file://".length(), s.length() - 1));
+							ImageElement.addImage(f, true, false);
+						}
+					}
+				}).start();
+
 			} catch (IOException e2) {
 			} catch (UnsupportedFlavorException e2) {
 			}
-			
+
 		}
 	}
-	
+
 }

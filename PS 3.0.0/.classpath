@@ -50,6 +50,6 @@
 	<classpathentry kind="lib" path="LWJGL3/lwjgl-vulkan.jar"/>
 	<classpathentry kind="lib" path="LWJGL3/lwjgl-xxhash-natives-linux.jar"/>
 	<classpathentry kind="lib" path="LWJGL3/lwjgl-xxhash.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/NokoBox"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/NokoBox 3.0.0"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

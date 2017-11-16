@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import no.nokorot.pointsystem.Windows.LiveWindow;
 import no.nokorot.pointsystem.utils.FontObject;
+import util.jly.objects.Body;
 import util.swing.Label;
 
 public class NamedTeam extends LiveWindow.Element {
@@ -26,7 +27,7 @@ public class NamedTeam extends LiveWindow.Element {
 			private static final long serialVersionUID = 1L;
 
 			protected void paintComponent(Graphics g) {
-				Rectangle bounds = this.getBounds();
+				Rectangle bounds = new Rectangle((int)(getWidth()*0.85), (int)(getHeight()*0.85));
 				bounds.x = bounds.y = 0;
 				nameFont.drawString(g, this.getText(), bounds);
 			}
@@ -37,7 +38,7 @@ public class NamedTeam extends LiveWindow.Element {
 			private static final long serialVersionUID = 1L;
 
 			protected void paintComponent(Graphics g) {
-				Rectangle bounds = this.getBounds();
+				Rectangle bounds = new Rectangle((int)(getWidth()*0.75), (int)(getHeight()*0.75));
 				bounds.x = bounds.y = 0;
 				pointsFont.drawString(g, this.getText(), bounds);		
 			}
@@ -45,6 +46,7 @@ public class NamedTeam extends LiveWindow.Element {
 		l.add(pointsLabel);
 
 		this.team = team;
+		team.label = this;
 
 		setRealatieBounds(x, y, width, height);
 	}
@@ -65,6 +67,14 @@ public class NamedTeam extends LiveWindow.Element {
 		this.y = (float) y;
 		this.width = (float) width;
 		this.height = (float) height;
+	}
+
+	public void setPoints(String text) {
+		pointsLabel.setText(text);
+	}
+
+	public void setName(String name) {
+		this.name.setText(name);	
 	}
 
 	public void update() {

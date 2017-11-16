@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.thecherno.raincloud.serialization.RCObject;
 
+import sun.text.resources.cldr.om.FormatData_om;
 import util.handelers.ImageHandeler;
 
 /**
@@ -19,11 +20,9 @@ import util.handelers.ImageHandeler;
  */
 public class FontObject {
 
-	public static Map<String, FontObject> fontObjects = new HashMap<String, FontObject>();
-
 	private static Graphics g = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB).getGraphics();
 	private FontMetrics f;
-
+	
 	private String fontname;
 	private int style;
 	private Color color = Color.BLUE;
@@ -33,8 +32,11 @@ public class FontObject {
 	private float borderwidth = .50f;
 	
 	public FontObject(String name) {
-		fontObjects.put(name, this);
 		set("Areal", Color.WHITE);
+	}
+	
+	public FontObject(FontObject fo){
+		copy(fo);
 	}
 
 	int ShiftY(int p, int distance) {
@@ -46,6 +48,7 @@ public class FontObject {
 	
 	public void drawString(Graphics g, String text, Rectangle bounds) {
 		Rectangle r = bounds;
+
 		Font font = new Font(fontname, style, getFittingFontSize(r.width, r.height, text));
 		FontMetrics m = g.getFontMetrics(font);
 
@@ -96,11 +99,12 @@ public class FontObject {
 
 	public void setFontname(String fontname) {
 		this.fontname = fontname;
-		f = g.getFontMetrics(new Font(fontname, Font.BOLD, 100));
+		f = g.getFontMetrics(new Font(fontname, style, 100));
 	}
 
 	public void setStyle(int style) {
 		this.style = style;
+		f = g.getFontMetrics(new Font(fontname, style, 100));
 	}
 
 	public void setColor(Color color) {
@@ -112,12 +116,19 @@ public class FontObject {
 	}
 
 	public void setBorderColor(Color color) {
-		System.out.println(color);
 		border = color;
+	}
+	
+	public Color getBorderColor() {
+		return border;
 	}
 
 	public void setBorderWidth(float thiknes) {
 		borderwidth = thiknes;
+	}
+	
+	public float getBorderWidth() {
+		return borderwidth;
 	}
 	
 	public boolean isBold() {
@@ -166,10 +177,27 @@ public class FontObject {
 	}
 
 	public int getFittingFontSize(int width, int height, String s) {
-		if (s == null)
+		
+		String ss = "abcdefghijklmnopqrstuvwxyz";
+		ss += ss.toUpperCase();
+		ss += "1234567890";
+		ss += "!-.,<>[]()";
+		
+		float ww = 0;
+		for (char c : ss.toCharArray())
+			ww += f.charWidth(c);
+		ww /= ss.length();
+		
+		float w = ww*s.length();//f.stringWidth(s);
+		
+		
+		if (s == null || s.length() == 0)
 			return 1;
-		int length = Math.max(s.length(), 1);
-		return (int) Math.min((width / length * getAspectRatio(s)), height * 0.85f);
+		
+		return (int) Math.min( width * 100 / w , height * 0.85f);
+		
+//		int length = Math.max(s.length(), 1);
+//		return (int) Math.min((width / length * getAspectRatio(s)), height * 0.85f);
 	}
 
 	private double getAspectRatio(String s) {

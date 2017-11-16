@@ -1,7 +1,13 @@
 package no.noko.pointsystem;
 
+import java.awt.BorderLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JTextField;
+
 import util.Window;
-import util.swing.NBTextField;
+import util.swing.NBPanel;
 import util.swing.gride.BoxObject;
 import util.swing.gride.XStrip;
 import util.swing.gride.YStrip;
@@ -18,23 +24,49 @@ public class ToolBar extends TabLabel implements BoxObject {
 		
 		this.addTab(makeHomeT());
 		
-		Tab backgroundT = new Tab(this, "Backgrond"); 
-		this.addTab(backgroundT);
+		this.addTab(makeBackgroundT());
 		
-		Tab fontsT = new Tab(this, "Fonts");
-		this.addTab(fontsT);
+		this.addTab(makeFontsT());
 	}
 	
 	private Tab makeHomeT() {
 		Tab homeT = new Tab(this, "Home");
 		XStrip x = new XStrip();
 		
-		YStrip y = new YStrip();
-		y.append(new NBTextField(window));
-		x.append(y);
+		NBPanel p1 = new NBPanel();
+		p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
+		p1.add(new JTextField("Hey"));
+		p1.add(new JTextField());
+		
+		NBPanel panel = new NBPanel();
+		panel.setLayout(null);
+		panel.add(p1, BorderLayout.CENTER);
+		panel.setBorder(BorderFactory.createTitledBorder("Drop area"));
+		
+		window.add(panel);
+		
+		x.append(panel);
+		
+//		YStrip y = new YStrip();
+//		y.append(new Label(window, "Size:"), 2);
+//		y.append(new NBTextField(window), 2);
+//		y.append(new NBTextField(window), 2);
+		
+		
+		x.append(new YStrip(), 5);
 		
 		homeT.getFrameBox().setBoxObject(x);
 		return homeT;
+	}
+	
+	private Tab makeBackgroundT(){
+		Tab backgroundT = new Tab(this, "Backgrond"); 
+		return backgroundT;
+	}
+	
+	private Tab makeFontsT(){
+		Tab fontsT = new Tab(this, "Fonts"); 
+		return fontsT;
 	}
 
 }

@@ -12,12 +12,16 @@ public interface BoxObject {
 
 	public void setVisible(boolean visable);
 	
-	public interface PreferdBoxObject extends BoxObject {
-		
-		public void makePreferdBox(Box box);
-		
-	}
 
 	public void setPane(JPanel pane);
 
+	public interface PreferdBoxObject extends BoxObject {
+		public void makePreferdBox(Box box);
+	}
+	
+	public static interface DBoxObject extends BoxObject {
+		public void increaseBounds(double dx, double dy, double dw, double dh);
+		public void setBounds(double x, double y, double width, double height);
+	}
+	
 }

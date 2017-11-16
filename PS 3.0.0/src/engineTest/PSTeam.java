@@ -219,6 +219,11 @@ public class PSTeam extends LiveContent implements BoxObject {
 	@Override
 	public void setPane(JPanel pane) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void repaint() {
+		// TODO Auto-generated method stub
 		
 	}
 }

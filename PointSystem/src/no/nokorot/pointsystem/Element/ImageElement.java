@@ -113,27 +113,29 @@ public class ImageElement {
 	public static void addImage(File file, boolean first, boolean select) {
 		if (file == null || !file.exists())
 			return;
-		if (!imageElements.contains(file)) {
-			BufferedImage image = ImageHandeler.loadGloab(file.getPath());
-			if (image == null)
+		for (ImageElement im : imageElements)
+			if (im.location != null && im.location.equals(file))
 				return;
-			ImageElement element = new ImageElement();
-			
-			element.location = file;
-			element.image = image;
-			element.createIcon(image);
+		
+		BufferedImage image = ImageHandeler.loadGloab(file.getPath());
+		if (image == null)
+			return;
+		ImageElement element = new ImageElement();
+		
+		element.location = file;
+		element.image = image;
+		element.createIcon(image);
 
-			if (first)
-				list.addImage(0, element.imageIcon, false);
-			else
-				list.addImage(element.imageIcon, false);
-			list.repaint();
+		if (first)
+			list.addImage(0, element.imageIcon, false);
+		else
+			list.addImage(element.imageIcon, false);
+		list.repaint();
 
-			if (select){
-				list.setSelectedIndex(first ? 0 : list.getElementCount() - 1);
-				lListener.onSelction(element);
-			}
-		}
+		if (select){
+			list.setSelectedIndex(first ? 0 : list.getElementCount() - 1);
+			lListener.onSelction(element);
+		}		
 	}
 
 	public static void addExtract(File file, String name, boolean first) {
@@ -156,12 +158,16 @@ public class ImageElement {
 			list.repaint();
 		}
 	}
+	
+	public static void removeImage(int index){
+		list.removeImage(index);
+		imageElements.remove(index);
+	}
 
 	public static void save(RCObject parent, String key) {
 		RCObject out = new RCObject(key);
 		int i = 0;
 		for (ImageElement element : imageElements) {
-			System.out.println(element.getPath());
 			if (element.getPath() == null || element.name == null)
 				continue;
 			out.addString("location " + i, element.getPath());
@@ -187,6 +193,8 @@ public class ImageElement {
 			return obj == this;
 		else if (obj instanceof String)
 			return ((String) obj).equals(location.getPath());
+		else if (obj instanceof File)
+			return ((File) obj).getPath().equals(location.getPath());
 		else if (obj instanceof Image)
 			return ((Image) obj).equals(image);
 		return false;

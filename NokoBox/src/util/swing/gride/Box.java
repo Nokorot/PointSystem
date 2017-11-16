@@ -35,17 +35,31 @@ public class Box implements BoxObject {
 	}
 
 	public void increaseBounds(double x, double y, double width, double height) {
-		setBounds(this.x + x, this.y + y, this.width + width, this.height + height);
+		//setBounds(this.x + x, this.y + y, this.width + width, this.height + height);
+		this.x = this.x + x;
+		this.y = this.y + y;
+		this.width = this.width + width;
+		this.height = this.height + height;
+		
+		if (this.object instanceof DBoxObject){
+			((DBoxObject) this.object).increaseBounds(x, y, width, height);
+		} else 
+			update();
 	}
 
 	protected void update(){
 		if (component != null){
 			component.setBounds(getRectangle());
-		}
-
-		if (object != null){
+		} 
+		if (this.object instanceof DBoxObject){
+			((DBoxObject) this.object).setBounds(getX(), getY(), getWidth(), getHeight());
+		} else if (object != null){
 			object.setBounds(getRectangle());
 		}
+	}
+	
+	public void rebounds(double x, double y, double width, double height){
+		increaseBounds(x-this.x, y-this.y, width-this.width, height-this.height);
 	}
 	
 	public void setBounds(double x, double y, double width, double height) {
@@ -155,7 +169,8 @@ public class Box implements BoxObject {
 		}
 			
 		this.object = object;
-//		update();
+//		this.object.setBounds(getRectangle());
+		update();
 	}
 
 	public BoxGrid getInsideGrid() {
@@ -181,22 +196,26 @@ public class Box implements BoxObject {
 		return getInsideGrid(BoxGrid.newD(x), BoxGrid.newD(y));
 	}
 	
-	/*public XStrip getXStrip() {
-		setComponent(null);
-		setInsets(0);
-		return (XStrip) (object = new XStrip(getRectangle()));
+	public Rectangle getRectangle() {
+		return new Rectangle((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 	
-	public YStrip getYStrip() {
-		setInsets(0);
-		return (YStrip) (object = new YStrip(getRectangle()));
-	}*/
-
-	public Rectangle getRectangle() {
-		return new Rectangle((int) x + insets.left, (int) y + insets.top, (int) width - insets.left
-				- insets.right, (int) height - insets.top - insets.bottom);
+	public double getX() {
+		return x + insets.left;
 	}
 
+	public double getY() {
+		return y + insets.top;
+	}
+	
+	public double getWidth() {
+		return width - insets.left - insets.right;
+	}
+	
+	public double getHeight() {
+		return height - insets.top - insets.bottom;
+	}
+	
 	public String toString() {
 		return "[x = " + x + ", y = " + y + ", width = " + width + ", height = " + height + "]";
 	}

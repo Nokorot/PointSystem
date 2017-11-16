@@ -1,5 +1,6 @@
 package util.swing;
 
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,7 +85,9 @@ public class PopDownTextField extends JComboBox<String> implements BoxObject {
 	}
 
 	public void setFontSize(int size) {
-		setFont(getFont().deriveFont(size));
+//		setFont(getFont().deriveFont(size));
+		
+		setFont(new Font(getFont().getFontName(), getFont().getStyle(), size));
 	}
 	
 	public void addElement(String element) {

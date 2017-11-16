@@ -212,10 +212,11 @@ public class Window extends JFrame implements NBTheamHolder {
 		frameBox = new Box(0, 0, getPlaneWidth(), getPlaneHeight());
 		addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
-				frameBox.setBounds(0, 0, getPlaneWidth(), getPlaneHeight());
+				frameBox.rebounds(0, 0, getPlaneWidth(), getPlaneHeight());
 			}
 			public void componentShown(ComponentEvent e) {
 				// TODO Auto-generated method stub
+				frameBox.setBounds(0, 0, getPlaneWidth(), getPlaneHeight());
 				super.componentShown(e);
 			}
 		});

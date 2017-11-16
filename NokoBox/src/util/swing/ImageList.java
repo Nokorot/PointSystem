@@ -132,12 +132,12 @@ public class ImageList extends JList<ImageIcon> implements BoxObject {
 	
 	public void setBounds(Rectangle r) {
 		sp.setBounds(r);
-//		super.setBounds(r);
 	}
 
 	@Override
 	public void setPane(JPanel pane) {
 		pane.add(this);
 	}
+
 
 }
