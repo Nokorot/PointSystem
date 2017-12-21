@@ -75,7 +75,7 @@ public class MainToolbar extends YStrip {
 		if (homeT == null){
 			YStrip root = new YStrip();
 			
-			//root.append((BoxObject) null, 2);
+			root.append((BoxObject) null, 1);
 			
 			XStrip x = new XStrip();
 			x.append(new Label(window, "Size"));
@@ -108,9 +108,9 @@ public class MainToolbar extends YStrip {
 			root.append(x, 1.25, 0).setBottomInset(20);
 
 			root.append(new NBButton(window, "Background"), 2, 0);
-			root.append(new NBButton(window, "Fonts"), 2, 0);
+		
 			
-			// root.append((BoxObject) null, 2);
+			 root.append((BoxObject) null, 1);
 			
 			homeT = root;
 			
@@ -124,43 +124,65 @@ public class MainToolbar extends YStrip {
 		if (EntitiesT == null){
 			YStrip root = new YStrip();
 			
-			root.append((BoxObject) null, 2);
+			root.append((BoxObject) null, 1);
 			
 //			root.append(new Label(window, "PintSystem"));
 			
+			YStrip y;
 			XStrip x = new XStrip();
-			x.append(new Label(window, "Teams"));
-			x.append(theams = new NBTextField(window));
-			root.append(x, 0.75).setBottomInset(20);
+			x.append(new Label(window, "Teams"), 3);
+			x.append(theams = new NBTextField(window), 4);
+			root.append(x, 0.75).setBottomInset(5);
 			
-			YStrip y = new YStrip();
-			y.append(new Label(window, "Points given"), 1);
-
-			x = new XStrip();
-			x.append(new Label(window, "--")).setTopBottomInsets(0);
-			x.append(new Label(window, "-")).setTopBottomInsets(0);
-			x.append(new Label(window, "+")).setTopBottomInsets(0);
-			x.append(new Label(window, "++")).setTopBottomInsets(0);
-			y.append(x);
-			x = new XStrip();
-			x.append(new NBTextField(window));
-			x.append(new NBTextField(window));
-			x.append(new NBTextField(window));
-			x.append(new NBTextField(window));
-			y.append(x,2);
 			
-			root.append(y, 1.5).setBottomInset(20);
+			x = new XStrip();
+			x.append(new Label(window, "Points given"), 3);
+			y = new YStrip();
+			y.append(new Label(window, "--")).setTopBottomInsets(0);
+			y.append(new NBTextField(window)).setTopInset(0);
+			x.append(y);
+			y = new YStrip();
+			y.append(new Label(window, "-")).setTopBottomInsets(0);
+			y.append(new NBTextField(window)).setTopInset(0);
+			x.append(y);
+			y = new YStrip();
+			y.append(new Label(window, "+")).setTopBottomInsets(0);
+			y.append(new NBTextField(window)).setTopInset(0);
+			x.append(y);
+			y = new YStrip();
+			y.append(new Label(window, "++")).setTopBottomInsets(0);
+			y.append(new NBTextField(window)).setTopInset(0);
+			x.append(y);
+			root.append(x);
+			
+			
+			
+//			x.append(new Label(window, "-")).setTopBottomInsets(0);
+//			x.append(new Label(window, "+")).setTopBottomInsets(0);
+//			x.append(new Label(window, "++")).setTopBottomInsets(0);
+//			y.append(x);
+//			
+//			x = new XStrip();
+//			x.append(new NBTextField(window));
+//			x.append(new NBTextField(window));
+//			x.append(new NBTextField(window));
+//			root.append(x,2);
+			
+//			root.append(y, 1.5).setBottomInset(20);
+			
 			
 			y = new YStrip();
 			
 			x = new XStrip();
-			x.append(new Label(window, "Default Names"), 8);
-			x.append(new NBButton(window, "?"));
+			x.append(new Label(window, "Default Names"), 3);
+			x.append(new NBButton(window, "?"), 0.5);
 			y.append(x);
 			y.append(new NBTextField(window, "Team #1"));
-			root.append(y);
+			root.append(y,1.3).setTopBottomInsets(5);;
+			root.append(new NBButton(window, "Fonts"), 1, 0);
 			
-			root.append((BoxObject) null, 2);
+			root.append((BoxObject) null, 1);
+			
 			
 			EntitiesT = root;
 		}

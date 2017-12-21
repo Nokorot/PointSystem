@@ -208,7 +208,7 @@ public class OnlineTeamPanel {
 		NBButton online = new NBButton(window, "", "online");
 		online.setBackground(Color.CYAN);
 		online.setIcon(MainMenu.icons[1], ScaleType.TILLPASS);
-		x.append(online, 3/8.);
+		x.append(online, 1/2.);
 		
 		boolean isInfoOpen = false; 
 		NBButton info = new NBButton(window, "", "info");
@@ -265,7 +265,7 @@ public class OnlineTeamPanel {
 				};
 			}
 		});
-		x.append(info, 3/8.);
+		x.append(info, 1/2.);
 		
 		advanced = new SwitchButton(window, SwitchButton.COLOR, window.panel2.buttonSets.background, Color.CYAN);
 		advanced.setText("Advanced");
@@ -274,6 +274,13 @@ public class OnlineTeamPanel {
 				enableAdvancedMode(advanced.activated);
 		});
 		x.append(advanced);
+		
+		SwitchButton GoOnline = new SwitchButton(window, SwitchButton.COLOR, window.panel2.buttonSets.background, Color.CYAN);
+		GoOnline.setText("Go Online");
+//				window, "", "Go Online");
+//		online.setIcon(MainMenu.icons[1], ScaleType.TILLPASS);
+		GoOnline.addActionListener((ActionEvent e) -> GoOnline());
+		x.append(GoOnline, 1);
 		
 		y = new YStrip();
 		y.append(new Label(window, "Team Amount"));
@@ -285,12 +292,7 @@ public class OnlineTeamPanel {
 		y.append(codeField = new NBTextField(window, "", "online-code"), 1.8);
 		x.append(y);
 
-		SwitchButton GoOnline = new SwitchButton(window, SwitchButton.COLOR, window.panel2.buttonSets.background, Color.CYAN);
-		GoOnline.setText("Go Online");
-//				window, "", "Go Online");
-//		online.setIcon(MainMenu.icons[1], ScaleType.TILLPASS);
-		GoOnline.addActionListener((ActionEvent e) -> GoOnline());
-		x.append(GoOnline, 1);
+		
 		
 		toolBox = x;
 	}

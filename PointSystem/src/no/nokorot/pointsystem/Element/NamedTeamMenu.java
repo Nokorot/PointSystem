@@ -8,6 +8,7 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 import no.nokorot.pointsystem.Windows.LiveWindow;
 import no.nokorot.pointsystem.Windows.MainMenu;
+import no.nokorot.pointsystem.Windows.OnlineWindow;
 import util.Window;
 import util.swing.NBButton;
 import util.swing.NBTextField;
@@ -25,7 +26,9 @@ public class NamedTeamMenu implements BoxObject {
 	private YStrip root0, root1;
 	
 	private Window menu;
-	private NBTextField nameLabel, pointsLabel;
+	private NBTextField nameLabel;
+
+	NBTextField pointsLabel;
 	private NBButton add, sub;
 	
 	public NamedTeamMenu(Window menu, Team team) {
@@ -75,21 +78,28 @@ public class NamedTeamMenu implements BoxObject {
 		sub = new NBButton(menu, "-") {
 			public void onAction() {
 				team.addPoints(-Integer.parseInt(MainMenu.GivenPoints.getText()));
-				pointsLabel.setText(team.stringedP());
+//				if (OnlineWindow.isOnline)
+//					OnlineWindow.psRead("info", OnlineWindow.psCode, "addPoints", team.index, team.points);
+//				pointsLabel.setText(team.stringedP());
 			}
 		};
 		
 		add = new NBButton(menu, "+") {
 			public void onAction() {
 				team.addPoints(Integer.parseInt(MainMenu.GivenPoints.getText()));
-				pointsLabel.setText(team.stringedP());
+//				if (OnlineWindow.isOnline){
+//					OnlineWindow.psRead("info", OnlineWindow.psCode, "addPoints", team.index, team.points);
+//				}
+//				pointsLabel.setText(team.stringedP());
 			}
 		};
 		
 		pointsLabel = new NBTextField(menu, team.stringedP()) {
 			protected void onAction() {
 				team.setPoints(pointsLabel.getText());
-				pointsLabel.setText(team.stringedP());
+//				if (OnlineWindow.isOnline)
+//					OnlineWindow.psRead("info", OnlineWindow.psCode, "addPoints", team.index, team.points);
+//				pointsLabel.setText(team.stringedP());
 			}
 		};
 		

@@ -31,10 +31,10 @@ import util.swing.gride.YStrip;
 
 public class MainMenu {
 
-	public final static int Width = 600, Height = 200;
+	public final static int Width = 800, Height = 250;
 	public final static int HeightFix = 0;
 
-	public static MySwitch font, backgornd, size; // ,nullNBButton;
+	public static MySwitch font, backgornd, size, online, slideShow; // ,nullNBButton;
 //	private static NBButton Hide, Logo, Black, Clear;
 //	private static NBButton ResetPoints, ResetNames;
 	
@@ -175,6 +175,8 @@ public class MainMenu {
 				x.append(size = new MySwitch(this, "Size", "size"));
 				x.append(backgornd = new MySwitch(this, "Background", "bg"));
 				x.append(font = new MySwitch(this, "Font", "font"));
+				x.append(online = new MySwitch(this, "Online", "online"));
+				x.append(slideShow = new MySwitch(this, "SlideShow", "slides"));
 				root.append(x, 1, 0);
 				
 				x = new XStrip();
@@ -216,6 +218,10 @@ public class MainMenu {
 						BackgroundEditor.Open(swich.Active); break;
 					case "font":
 						FontEditor2.Open(swich.Active); break;
+					case "online":
+						OnlineWindow.Open(swich.Active); break;
+					case "slides":
+						SlideShowWindow.Open(swich.Active); break;
 						
 					case "hide":
 						LiveWindow.setVisible(!swich.Active);
@@ -229,6 +235,7 @@ public class MainMenu {
 						
 					case "clear":
 						LiveWindow.setMode(LiveWindow.ClearMode, swich.Active); break;
+						
 					}
 				}
 				else if (b.code != null){
@@ -236,8 +243,9 @@ public class MainMenu {
 					case "setD": SetDefaultName.Open();
 					case "resp":
 						for (NamedTeamMenu team : Teams) 
-							if(team != null)
+							if(team != null){
 								team.setPoints(0);
+							}
 						break;
 					case "resn":
 						int i = 1;
@@ -246,8 +254,6 @@ public class MainMenu {
 								team.setName(defaultName.replace("%i", "" + i++));
 							}
 						break;
-					case "online":
-						setOnline(!Online);
 					}
 				}
 			}

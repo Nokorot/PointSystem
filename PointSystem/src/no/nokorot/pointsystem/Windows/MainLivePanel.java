@@ -61,7 +61,7 @@ public class MainLivePanel extends YStrip {
 		x = new XStrip();
 		x.append(new NBButton(window, "Reset P"));
 		x.append(new NBButton(window, "Reset N"));
-		this.append(x, 0.5, 0);
+		this.append(x, 0.75, 0);
 		
 		contentBox = new Box();
 		this.append(contentBox, 9);

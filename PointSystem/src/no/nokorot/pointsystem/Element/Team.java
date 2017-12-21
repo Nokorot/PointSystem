@@ -1,5 +1,6 @@
 package no.nokorot.pointsystem.Element;
 
+import no.nokorot.pointsystem.Windows.OnlineWindow;
 import no.nokorot.pointsystem.utils.FontObject;
 
 import com.thecherno.raincloud.serialization.RCObject;
@@ -12,20 +13,22 @@ public class Team {
 	
 	static{
 		for (int i = 0; i < TEAMS.length; i++)
-			TEAMS[i] = new Team("Team " + (i + 1));
+			TEAMS[i] = new Team("Team " + (i + 1), i);
 	}
 	
 	public NamedTeam label;
 	public NamedTeamMenu menu;
 	
+	public int index;
 	public String name;
 	public int points;
 
 	public FontObject fontName = new FontObject("Name");
 	public FontObject fontPoints = new FontObject("Points");
 
-	private Team(String name) {
+	private Team(String name, int index) {
 		this.name = name;
+		this.index = index;
 	}
 
 	public void set(String name, int points) {
@@ -54,12 +57,20 @@ public class Team {
 		points = i;
 		if (label != null)
 			label.setPoints(stringedP());
+		if (menu != null) 
+			menu.pointsLabel.setText(stringedP());
+		if (OnlineWindow.isOnline)
+			OnlineWindow.psRead("info", OnlineWindow.psCode, "addPoints", index, points);
 	}
 	
 	public void addPoints(int i) {
 		points += i;
 		if (label != null)
 			label.setPoints(stringedP());
+		if (menu != null) 
+			menu.pointsLabel.setText(stringedP());
+		if (OnlineWindow.isOnline)
+			OnlineWindow.psRead("info", OnlineWindow.psCode, "addPoints", index, points);
 	}
 
 	public void load(RCObject parent, String key) {

@@ -166,11 +166,16 @@ public class LiveWindow {
 			g.setColor(backgroundColor);
 			g.fillRect(0, 0, getWidth(), getHeight());
 			
+			
+			
 			if ((Mode & LogoMode) > 0)
 				renderScaledImage(g, Logo, LogoScaling);
+			else if (PSData.SlideShowEnaled)
+				renderScaledImage(g, PSData.slidePage, PSData.slideScale);
 			else {
 				renderScaledImage(g, BackgroundImage, BacgroundScaling);
 			}
+			
 		}
 		
 //		g.dispose();

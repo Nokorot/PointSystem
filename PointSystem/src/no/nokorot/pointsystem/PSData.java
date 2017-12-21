@@ -22,6 +22,12 @@ public class PSData {
 	public static enum Material {
 		IMAGE, COLOR;
 	}
+	
+	public static boolean SlideShowEnaled = false;
+	public static BufferedImage slidePage;
+	public static ScaleType slideScale = ScaleType.TILLPASS;
+	public static int selectedPage = 0;
+	
 
 	public static BufferedImage backgroundImage = PointSystem.Logo, logo = PointSystem.Logo;
 	public static ScaleType backgroundScaleType = ScaleType.TILLPASS;

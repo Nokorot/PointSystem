@@ -137,6 +137,10 @@ public class BackgroundEditor {
 				
 				root.append(y, 5);
 				
+				y = new YStrip();
+				Label l = new Label(this, "Drag and drop images here.");
+				l.setFontSize(14);
+				y.append(l, 1, 0);
 				imageList = new ImageList(this, "imageList");
 				imageList.setBackground(Color.LIGHT_GRAY);
 				imageList.setDropTarget(new DropTarget(imageList, new ImageDropTargetListener()));
@@ -147,7 +151,8 @@ public class BackgroundEditor {
 //						colorList.clearSelection();
 					}
 				});
-				root.append(imageList, 2);
+				y.append(imageList, 20);
+				root.append(y, 2);
 				
 				this.getFrameBox().setBoxObject(root);
 

@@ -44,7 +44,6 @@ public class SwitchButton extends NBButton {
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setActiveIndex(active + 1);
-				System.out.println(active);
 			}
 		});
 		

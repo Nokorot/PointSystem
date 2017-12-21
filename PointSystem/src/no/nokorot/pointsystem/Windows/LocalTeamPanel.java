@@ -26,7 +26,7 @@ public class LocalTeamPanel {
 	private Window window;
 	private NamedTeamMenu[] Teams;
 
-	private NBTextField teamAmount;
+	public static NBTextField teamAmount;
 
 	public LocalTeamPanel(Window window, NamedTeamMenu[] teamMenues) {
 		this.window = window;
@@ -45,9 +45,9 @@ public class LocalTeamPanel {
 	private void initToolBox() {
 		YStrip y;
 		XStrip x = new XStrip();
-		NBButton online = new NBButton(window, "", "online");
-		online.setIcon(MainMenu.icons[1], ScaleType.TILLPASS);
-		x.append(online, .5);
+//		NBButton online = new NBButton(window, "", "online");
+//		online.setIcon(MainMenu.icons[1], ScaleType.TILLPASS);
+//		x.append(online, .5);
 
 		NBButton setD = new NBButton(window, "", "setD");
 		setD.setIcon(MainMenu.icons[0], ScaleType.TILLPASS);

@@ -7,6 +7,8 @@ import static no.nokorot.pointsystem.PSData.logoScaleType;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 
 import com.thecherno.raincloud.serialization.RCObject;
@@ -24,7 +26,7 @@ import util.swing.gride.YStrip;
 
 public class MainMenu2 {
 
-	public final static int Width = 600, Height = 600;
+	public final static int Width = 640, Height = 440;
 	public final static int HeightFix = 0;
 
 //	public static MySwitch font, backgornd, size; // ,nullNBButton;
@@ -123,7 +125,7 @@ public class MainMenu2 {
 			private static final long serialVersionUID = 1L;
 
 			public void Init() {
-				setResizable(true);
+				setResizable(false);
 				setDefaultCloseOperation(3);
 
 				panel2.textfeldSets.setFont(new Font("Arial", Font.BOLD, 32));
@@ -133,6 +135,29 @@ public class MainMenu2 {
 				
 				root.append(new MainToolbar(this), 1).setRightInset(10);;
 				root.append(new MainLivePanel(this), 1);
+				
+				Window window = this;
+				addComponentListener(new ComponentListener() {
+					
+					public void componentShown(ComponentEvent e) {
+					}
+					
+					public void componentResized(ComponentEvent e) {
+						System.out.println(window.getSize());
+					}
+					
+					@Override
+					public void componentMoved(ComponentEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void componentHidden(ComponentEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 				
 				/*YStrip root = new YStrip();
 				XStrip x;
